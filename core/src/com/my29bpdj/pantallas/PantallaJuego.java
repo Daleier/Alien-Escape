@@ -9,6 +9,7 @@ import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.My29bpdjGame;
 import com.my29bpdj.renderer.RendererJuego;
 import com.my29bpdj.renderer.Test01RendererJuego;
+import com.my29bpdj.renderer.Test02RendererJuego;
 
 public class PantallaJuego implements Screen {
     private boolean pause;
@@ -16,11 +17,11 @@ public class PantallaJuego implements Screen {
     private boolean sair;
 
     private Juego meuxogogame;
-    private Test01RendererJuego rendererxogo;
+    private Test02RendererJuego rendererxogo;
 
     public PantallaJuego(Juego meuxogogame){
         this.meuxogogame=meuxogogame;
-        rendererxogo=new Test01RendererJuego();
+        rendererxogo=new Test02RendererJuego();
     }
 
 
