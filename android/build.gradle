@@ -1,5 +1,7 @@
 android {
-    buildToolsVersion "26.0.2"
+    signingConfigs {
+    }
+    buildToolsVersion '26.0.2'
     compileSdkVersion 26
     sourceSets {
         main {
@@ -20,7 +22,7 @@ android {
     defaultConfig {
         applicationId "com.my29bpdj.game"
         minSdkVersion 9
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -29,6 +31,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
     }
 }
 // called every time gradle gets executed, takes the native dependencies of

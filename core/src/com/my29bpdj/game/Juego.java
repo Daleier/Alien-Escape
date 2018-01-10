@@ -9,19 +9,15 @@ import com.my29bpdj.pantallas.PantallaJuego;
 
 public class Juego extends Game {
 
-    private PantallaJuego pantallaxogo;
-
     @Override
     public void create() {
-        // TODO Auto-generated method stub
-
-        pantallaxogo = new PantallaJuego(this);
-        setScreen(pantallaxogo);
+        AssetsJuego.cargarTexturas();
+        setScreen(new PantallaJuego(this));
     }
 
     @Override
     public void dispose(){
         super.dispose();
-        pantallaxogo.dispose();
+        AssetsJuego.liberarTexturas();
     }
 }
