@@ -34,9 +34,9 @@ public class Test01RendererJuego implements InputProcessor{
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-//        camara2d.rotate(1);
+        camara2d.rotate(1);
         camara2d.position.set(50,50,0);
-//        camara2d.zoom+=0.01f;
+        camara2d.zoom+=0.01f;
         camara2d.update();
         spritebatch.setProjectionMatrix(camara2d.combined);
 
