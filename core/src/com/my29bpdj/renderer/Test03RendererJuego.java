@@ -33,7 +33,7 @@ public class Test03RendererJuego implements InputProcessor {
                 temporal = new Vector3();
                 Gdx.input.setInputProcessor(this);
         }
- 
+
         /**
          * Debuxa todos os elementos graficos da pantalla
          *
@@ -43,7 +43,7 @@ public class Test03RendererJuego implements InputProcessor {
         public void render(float delta) {
                 Gdx.gl.glClearColor(1, 1, 1, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
- 
+
                 spritebatch.begin();
                 spritebatch.draw(AssetsJuego.textureAlien, temporal.x,temporal.y, 15, 15);
                 spritebatch.draw(AssetsJuego.textureAlienDead, Mundo.TAMANO_MUNDO_ANCHO/2+25,Mundo.TAMANO_MUNDO_ALTO/2+25, 15, 15);
@@ -81,18 +81,18 @@ public class Test03RendererJuego implements InputProcessor {
                 shaperender.end();
         }
         public void resize(int width, int height) {
- 
+
                 camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO,
                                 Mundo.TAMANO_MUNDO_ALTO);
                 camara2d.update();
- 
+
                 spritebatch.setProjectionMatrix(camara2d.combined);
                 shaperender.setProjectionMatrix(camara2d.combined);
 
         }
- 
+
         public void dispose() {
- 
+
                 Gdx.input.setInputProcessor(null);
                 spritebatch.dispose();
         }
@@ -104,47 +104,47 @@ public class Test03RendererJuego implements InputProcessor {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean keyUp(int keycode) {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean keyTyped(char character) {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 // TODO Auto-generated method stub
- 
+
                 temporal.set(screenX,screenY,0);
                 camara2d.unproject(temporal);
-               
+
                 return false;
         }
- 
+
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer) {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean mouseMoved(int screenX, int screenY) {
                 // TODO Auto-generated method stub
                 return false;
         }
- 
+
         @Override
         public boolean scrolled(int amount) {
                 // TODO Auto-generated method stub

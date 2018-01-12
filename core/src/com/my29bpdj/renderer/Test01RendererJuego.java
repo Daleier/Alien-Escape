@@ -45,6 +45,7 @@ public class Test01RendererJuego implements InputProcessor{
         spritebatch.draw(grafico,Mundo.TAMANO_MUNDO_ANCHO/2,Mundo.TAMANO_MUNDO_ALTO/2,50,50);
         spritebatch.end();
     }
+
     public void resize(int width, int height) {
 
         camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO,
