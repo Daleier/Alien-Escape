@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.game.AssetsJuego;
 import com.my29bpdj.modelo.Alien;
+import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
 
@@ -50,6 +51,7 @@ public class RendererJuego implements InputProcessor{
         spritebatch.begin();
 		dibujarAlien();
 		dibujarNave();
+		dibujarCoches();
 		spritebatch.end();
 
         if (debugger){
@@ -69,6 +71,11 @@ public class RendererJuego implements InputProcessor{
 				nave.getPosicion().x,nave.getPosicion().y,nave.getTamano().x,nave.getTamano().y);
 	}
 
+	private void dibujarCoches(){
+		for (ElementoMovil coche : meuMundo.getCoches()){
+			spritebatch.draw(AssetsJuego.textureCoche,coche.getPosicion().x,coche.getPosicion().y,coche.getTamano().x,coche.getTamano().y);
+		}
+	}
     /**
      * Debuxa os gráficos en forma de figuras xeométricas
      */
