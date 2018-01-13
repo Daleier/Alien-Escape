@@ -15,7 +15,7 @@ public class Mundo {
     private Array<ElementoMovil>coches;
 
     public Mundo(){
-        alien = new Alien(new Vector2(100,20), new Vector2(15,15),100);
+        alien = new Alien(new Vector2(100,20), new Vector2(15,15),this.TAMANO_MUNDO_ANCHO/3);
         nave = new Nave(new Vector2(0,480), new Vector2(40,20), 60);
 
         coches = new Array<ElementoMovil>();

@@ -35,14 +35,12 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void render(float delta) {
-        // TODO Auto-generated method stub
         controladorXogo.update(delta);
         rendererxogo.render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
         rendererxogo.resize(width, height);
     }
 
@@ -71,8 +69,6 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
-
         rendererxogo.dispose();
     }
 
