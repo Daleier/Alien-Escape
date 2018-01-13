@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -72,9 +73,21 @@ public class RendererJuego implements InputProcessor{
 	}
 
 	private void dibujarCoches(){
-		for (ElementoMovil coche : meuMundo.getCoches()){
-			spritebatch.draw(AssetsJuego.textureCoche,coche.getPosicion().x,coche.getPosicion().y,coche.getTamano().x,coche.getTamano().y);
-		}
+        Texture textura=null;
+        for (ElementoMovil coche : meuMundo.getCoches()){
+            switch(coche.getTipo()){
+                case COCHE:
+                    textura = AssetsJuego.textureCoche;
+                    break;
+                default:
+                    textura = AssetsJuego.textureAutobus;
+                    break;
+            }
+            spritebatch.draw(textura,
+                    coche.getPosicion().x,coche.getPosicion().y,
+                    coche.getTamano().x,coche.getTamano().y);
+        }
+
 	}
     /**
      * Debuxa os gráficos en forma de figuras xeométricas

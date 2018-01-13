@@ -5,6 +5,7 @@ package com.my29bpdj.pantallas;
  */
 
 import com.badlogic.gdx.Screen;
+import com.my29bpdj.controlador.ControladorJuego;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.My29bpdjGame;
 import com.my29bpdj.modelo.Mundo;
@@ -20,19 +21,23 @@ public class PantallaJuego implements Screen {
     private Mundo meuMundo;
     private Juego meuxogogame;
     private RendererJuego rendererxogo;
+    private ControladorJuego controladorXogo;
+
 
     public PantallaJuego(Juego meuxogogame){
         meuMundo = new Mundo();
         this.meuxogogame=meuxogogame;
         rendererxogo=new RendererJuego(meuMundo);
+        controladorXogo = new ControladorJuego(meuMundo);
+
     }
 
 
     @Override
     public void render(float delta) {
         // TODO Auto-generated method stub
-
-        rendererxogo.render(0);
+        controladorXogo.update(delta);
+        rendererxogo.render(delta);
     }
 
     @Override

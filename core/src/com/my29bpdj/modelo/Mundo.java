@@ -19,8 +19,10 @@ public class Mundo {
         nave = new Nave(new Vector2(0,480), new Vector2(40,20), 60);
 
         coches = new Array<ElementoMovil>();
-        coches.add(new ElementoMovil(new Vector2(10,400),new Vector2(20,15),65));
-        coches.add(new ElementoMovil(new Vector2(40,400),new Vector2(20,15),65));
+        coches.add(new ElementoMovil(new Vector2(10,400),new Vector2(20,15),65, ElementoMovil.TIPOS_ELEMENTOS.COCHE));
+        coches.add(new ElementoMovil(new Vector2(40,400),new Vector2(20,15),65, ElementoMovil.TIPOS_ELEMENTOS.AUTOBUS));
+        coches.add(new ElementoMovil(new Vector2(70,400),new Vector2(20,15),65, ElementoMovil.TIPOS_ELEMENTOS.COCHE));
+        coches.add(new ElementoMovil(new Vector2(100,400),new Vector2(20,15),65, ElementoMovil.TIPOS_ELEMENTOS.AUTOBUS));
     }
 
     public Alien getAlien() {
