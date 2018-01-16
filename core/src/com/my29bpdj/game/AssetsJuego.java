@@ -22,34 +22,34 @@ public class AssetsJuego {
 		*/
 		public static void cargarTexturas(){
 //               	LIBGDX_itin1_alien.png (textureAlien).
-			FileHandle imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_alien.png");
+			FileHandle imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_alien.png");
 			textureAlien = new Texture(imageFileHandle);
-//                LIBGDX_itin1_alien_dead.png (textureAlienDead).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_alien_dead.png");
+//                libgdx_itin1_alien_dead.png (textureAlienDead).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_alien_dead.png");
 			textureAlienDead = new Texture(imageFileHandle);
-//                LIBGDX_itin1_alien_rescue.png (textureAlienRescue).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_alien_rescue.png");
+//                libgdx_itin1_alien_rescue.png (textureAlienRescue).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_alien_rescue.png");
 			textureAlienRescue = new Texture(imageFileHandle);
-//                LIBGDX_itin1_autobus1.png (textureAutobus).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_autobus1.png");
+//                libgdx_itin1_autobus1.png (textureAutobus).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_autobus1.png");
 			textureAutobus = new Texture(imageFileHandle);
-//                LIBGDX_itin1_coche1.png (textureCoche).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_coche1.png");
+//                libgdx_itin1_coche1.png (textureCoche).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_coche1.png");
 			textureCoche = new Texture(imageFileHandle);
-//                LIBGDX_itin1_fondoxogo.jpg (textureFondo).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_fondoxogo.jpg");
+//                libgdx_itin1_fondoxogo.jpg (textureFondo).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_fondoxogo.jpg");
 			textureFondo = new Texture(imageFileHandle);
-//                LIBGDX_itin1_nave.png (textureNave).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_nave.png");
+//                libgdx_itin1_nave.png (textureNave).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_nave.png");
 			textureNave = new Texture(imageFileHandle);
-//                LIBGDX_itin1_roca.png (textureRoca).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_roca.png");
+//                libgdx_itin1_roca.png (textureRoca).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_roca.png");
 			textureRoca = new Texture(imageFileHandle);
-//                LIBGDX_itin1_tronco.jpg (textureTronco).
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_itin1_tronco.jpg");
+//                libgdx_itin1_tronco.jpg (textureTronco).
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_itin1_tronco.jpg");
 			textureTronco = new Texture(imageFileHandle);
-//                LIBGDX_puntonegro.jpg (texturePuntoNegro)
-			imageFileHandle = Gdx.files.internal("GRAFICOS/LIBGDX_puntonegro.jpg");
+//                libgdx_puntonegro.jpg (texturePuntoNegro)
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_puntonegro.jpg");
 			texturePuntoNegro = new Texture(imageFileHandle);
 		}
 
