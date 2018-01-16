@@ -54,6 +54,8 @@ public class RendererJuego implements InputProcessor{
 		dibujarAlien();
 		dibujarNave();
 		dibujarCoches();
+		dibujarRocas();
+		dibujarTroncos();
 		spritebatch.end();
 
         if (debugger){
@@ -78,31 +80,48 @@ public class RendererJuego implements InputProcessor{
 	}
 
 	private void dibujarCoches(){
-        Texture textura=null;
-        for (ElementoMovil coche : meuMundo.getCoches()){
-            switch(coche.getTipo()){
-                case COCHE:
-                    textura = AssetsJuego.textureCoche;
-                    break;
-                default:
-                    textura = AssetsJuego.textureAutobus;
-                    break;
-            }
-            spritebatch.draw(textura,
-                    coche.getPosicion().x,coche.getPosicion().y,
-                    coche.getTamano().x,coche.getTamano().y);
-        }
+		Texture textura=null;
+
+		for (ElementoMovil coche : meuMundo.getCoches()){
+			switch(coche.getTipo()){
+				case COCHE:
+					textura = AssetsJuego.textureCoche;
+					break;
+				default:
+					textura = AssetsJuego.textureAutobus;
+					break;
+			}
+			if (coche.getVelocidade()<0){
+				spritebatch.draw(textura,coche.getPosicion().x+coche.getTamano().x,coche.getPosicion().y,-coche.getTamano().x,coche.getTamano().y);
+			}
+			else{
+				spritebatch.draw(textura,coche.getPosicion().x,coche.getPosicion().y,coche.getTamano().x,coche.getTamano().y);
+			}
+		}
+	}
+
+	private void dibujarRocas() {
+		for(ElementoMovil roca: meuMundo.getRocas()) {
+			spritebatch.draw(AssetsJuego.textureRoca, roca.getPosicion().x, roca.getPosicion().y, roca.getTamano().x, roca.getTamano().y);
+		}
+	}
+
+	private void dibujarTroncos(){
+		for (ElementoMovil tronco : meuMundo.getTroncos()){
+			spritebatch.draw(AssetsJuego.textureTronco,tronco.getPosicion().x,tronco.getPosicion().y,tronco.getTamano().x,tronco.getTamano().y);
+		}
 
 	}
+
     /**
      * Debuxa os gráficos en forma de figuras xeométricas
      */
     private void debugger(){
         shaperender.begin(ShapeRenderer.ShapeType.Line);
         shaperender.setColor(Color.BLUE);
-
         shaperender.end();
     }
+
     public void resize(int width, int height) {
 		camara2d.setToOrtho(false,Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
 		camara2d.update();
