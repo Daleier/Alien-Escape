@@ -50,6 +50,7 @@ public class RendererJuego implements InputProcessor{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         spritebatch.begin();
+		dibujarFondo();
 		dibujarAlien();
 		dibujarNave();
 		dibujarCoches();
@@ -59,6 +60,10 @@ public class RendererJuego implements InputProcessor{
             debugger();
         }
     }
+	private void dibujarFondo(){
+		spritebatch.draw(AssetsJuego.textureFondo,
+				0,0,Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
+	}
 
 	private void dibujarAlien(){
 		Alien alien = meuMundo.getAlien();
