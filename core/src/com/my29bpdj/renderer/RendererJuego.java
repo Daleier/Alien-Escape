@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.game.AssetsJuego;
@@ -28,6 +29,8 @@ public class RendererJuego implements InputProcessor{
 	private boolean debugger=true;
 	private ShapeRenderer shaperender;
 	private Mundo meuMundo;
+	private float crono;
+
 
 
 	public RendererJuego(Mundo mundo) {
@@ -36,7 +39,9 @@ public class RendererJuego implements InputProcessor{
 		spritebatch = new SpriteBatch();
 		shaperender = new ShapeRenderer();
 		temporal = new Vector3();
+		crono = 0;
 		Gdx.input.setInputProcessor(this);
+
 	}
 
     /**
@@ -75,8 +80,11 @@ public class RendererJuego implements InputProcessor{
 
 	private void dibujarNave(){
 		Nave nave = meuMundo.getNave();
-		spritebatch.draw(AssetsJuego.textureNave,
-				nave.getPosicion().x,nave.getPosicion().y,nave.getTamano().x,nave.getTamano().y);
+		crono+=Gdx.graphics.getDeltaTime();
+		TextureRegion currentFrame = (TextureRegion) AssetsJuego.naveAnimacion.getKeyFrame(crono, true);
+		spritebatch.draw(currentFrame, nave.getPosicion().x,
+						nave.getPosicion().y, nave.getTamano().x,
+						nave.getTamano().y);
 	}
 
 	private void dibujarCoches(){

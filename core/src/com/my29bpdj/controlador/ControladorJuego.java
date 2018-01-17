@@ -4,6 +4,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mundo;
+import com.my29bpdj.modelo.Nave;
+
+import static com.badlogic.gdx.math.MathUtils.random;
+
 
 public class ControladorJuego {
         Mundo meuMundo;
@@ -53,22 +57,53 @@ public class ControladorJuego {
 			if (tronco.getPosicion().x < -Mundo.TAMANO_TRONCO.x) {
 				meuMundo.getTroncos().add(new ElementoMovil(
 						new Vector2(MathUtils.random(Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ANCHO + Mundo.TAMANO_TRONCO.x),
-								tronco.getPosicion().y), Mundo.TAMANO_TRONCO.cpy(), tronco.getVelocidade(), ElementoMovil.TIPOS_ELEMENTOS.TRONCO));
+								tronco.getPosicion().y), Mundo.TAMANO_TRONCO.cpy(), random(-70,-40), ElementoMovil.TIPOS_ELEMENTOS.TRONCO));
 				meuMundo.getTroncos().removeValue(tronco, true);
-
 			}
 			if (tronco.getPosicion().x > Mundo.TAMANO_MUNDO_ANCHO) {
 				meuMundo.getTroncos().add(new ElementoMovil(new Vector2(MathUtils.random(-2 * Mundo.TAMANO_TRONCO.x, -Mundo.TAMANO_TRONCO.x),
-						tronco.getPosicion().y), Mundo.TAMANO_TRONCO.cpy(), tronco.getVelocidade(), ElementoMovil.TIPOS_ELEMENTOS.TRONCO));
+						tronco.getPosicion().y), Mundo.TAMANO_TRONCO.cpy(), random(40,70), ElementoMovil.TIPOS_ELEMENTOS.TRONCO));
 				meuMundo.getTroncos().removeValue(tronco, true);
 			}
 		}
 	}
 
-        public void update(float delta){
-                controlarCoches(delta);
-                controlarRocas(delta);
-                controlarTroncos(delta);
-        }
- 
+	private void controlarNave(float delta){
+		Nave nave = meuMundo.getNave();
+
+		if ((nave.getPosicion().x > 33 && nave.getPosicion().x < 35) ||
+				(nave.getPosicion().x > 133 && nave.getPosicion().x < 135) ||
+				(nave.getPosicion().x > 227 && nave.getPosicion().x < 229))
+		{
+			nave.setParado(true);
+		}
+		if (nave.isParado()){
+			nave.setTiempo(nave.getTiempo()+delta);
+			if (nave.getTiempo() > nave.getTIEMPO_MOVIENDOSE()){
+				nave.setTiempo(0);
+				nave.setParado(false);
+			}
+		}
+		if(!nave.isParado()){
+			nave.setPosicion(nave.getPosicion().x+delta*nave.getVelocidade(),nave.getPosicion().y);
+
+			// Se chega ó final do recorrido cambiamos de dirección
+			if (nave.getPosicion().x >=Mundo.TAMANO_MUNDO_ANCHO-nave.getTamano().x){
+				nave.setPosicion(Mundo.TAMANO_MUNDO_ANCHO-nave.getTamano().x,nave.getPosicion().y);
+				nave.setVelocidade(-1*nave.getVelocidade());
+			} else if (nave.getPosicion().x<=0) {
+				nave.setPosicion(0,nave.getPosicion().y);
+				nave.setVelocidade(-1*nave.getVelocidade());
+			}
+		}
+
+	}
+
+	public void update(float delta){
+		controlarNave(delta);
+		controlarCoches(delta);
+		controlarRocas(delta);
+		controlarTroncos(delta);
+	}
+
 }

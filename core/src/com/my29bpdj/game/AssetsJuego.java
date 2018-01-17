@@ -3,7 +3,9 @@ package com.my29bpdj.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
- 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 public class AssetsJuego {
  
 		public static Texture textureAlien;
@@ -16,6 +18,8 @@ public class AssetsJuego {
 		public static Texture textureRoca;
 		public static Texture textureTronco;
 		public static Texture texturePuntoNegro;
+		public static Animation naveAnimacion;
+
 
 		/**
 		* Método encargado de cargar todas as texturas
@@ -51,6 +55,23 @@ public class AssetsJuego {
 //                libgdx_puntonegro.jpg (texturePuntoNegro)
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_puntonegro.jpg");
 			texturePuntoNegro = new Texture(imageFileHandle);
+//				Animación nave
+			imageFileHandle = Gdx.files.internal("graficos/libgdx_spaceship.png");
+			Texture textureAnimNave = new Texture(imageFileHandle);
+			TextureRegion[][] tmp = TextureRegion.split(textureAnimNave,200,110);
+			int num_columnas = tmp[0].length;
+			int num_filas = tmp.length;
+			TextureRegion[] framesanimacion = new TextureRegion[num_columnas*num_filas-1];
+			int cont=0;
+			for(int fila=0; fila<num_filas;fila++){
+				for(int col=0; col<num_columnas;col++){
+					if (!((fila==1)&&(col==0))) {
+						framesanimacion[cont] = tmp[fila][col];
+						cont++;
+					}
+				}
+			}
+			naveAnimacion = new Animation(0.15f, framesanimacion);
 		}
 
 
