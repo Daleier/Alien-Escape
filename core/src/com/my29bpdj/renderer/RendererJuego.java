@@ -56,11 +56,11 @@ public class RendererJuego implements InputProcessor{
 
         spritebatch.begin();
 		dibujarFondo();
-		dibujarAlien();
 		dibujarNave();
 		dibujarCoches();
 		dibujarRocas();
 		dibujarTroncos();
+		dibujarAlien();
 		spritebatch.end();
 
         if (debugger){

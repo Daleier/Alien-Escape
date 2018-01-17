@@ -2,54 +2,71 @@ package com.my29bpdj.controlador;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
+
+import java.util.HashMap;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
 
 public class ControladorJuego {
-        Mundo meuMundo;
+	Mundo meuMundo;
+	private Alien alien;
+
+
+	public enum Keys {
+		ESQUERDA,DEREITA,ARRIBA,ABAIXO
+	}
+
+	HashMap<Keys, Boolean> keys = new HashMap<ControladorJuego.Keys, Boolean>();
+	{
+		keys.put(Keys.ESQUERDA, false);
+		keys.put(Keys.DEREITA, false);
+		keys.put(Keys.ARRIBA, false);
+		keys.put(Keys.ABAIXO, false);
+	};
        
-        public ControladorJuego(Mundo mundo){
-                this.meuMundo=mundo;
-               
-         }
+	public ControladorJuego(Mundo mundo){
+		this.meuMundo=mundo;
+		this.alien=meuMundo.getAlien();
+	}
 
-        private void controlarCoches(float delta) {
-                for(ElementoMovil coche: meuMundo.getCoches()){
-                        coche.update(delta);
-                        if (coche.getVelocidade()>0){   // Vai de esquerda a dereita
-                                if (coche.getPosicion().x>=Mundo.TAMANO_MUNDO_ANCHO){
-                                        coche.setPosicion(-Mundo.TAMANO_AUTOBUSES.x, coche.getPosicion().y);
-                                }
-                        }
-                        else{   // Vai de dereita a esquerda
-                                if (coche.getPosicion().x<=-coche.getTamano().x){
-                                        if (coche.getTipo()==ElementoMovil.TIPOS_ELEMENTOS.COCHE)       // E un coche enton necesitamos situalo un pouco a dereita se non vai pisando o autobus
-                                                coche.setPosicion(Mundo.TAMANO_MUNDO_ANCHO+Mundo.TAMANO_AUTOBUSES.x-Mundo.TAMANO_COCHES.x, coche.getPosicion().y);
-                                        else
-                                                coche.setPosicion(Mundo.TAMANO_MUNDO_ANCHO, coche.getPosicion().y);
-                                }
-                        }
-                }
-        }
+	private void controlarCoches(float delta) {
+		for(ElementoMovil coche: meuMundo.getCoches()){
+			coche.update(delta);
+			if (coche.getVelocidade()>0){   // Vai de esquerda a dereita
+				if (coche.getPosicion().x>=Mundo.TAMANO_MUNDO_ANCHO){
+						coche.setPosicion(-Mundo.TAMANO_AUTOBUSES.x, coche.getPosicion().y);
+				}
+			}
+			else{   // Vai de dereita a esquerda
+				if (coche.getPosicion().x<=-coche.getTamano().x){
+						if (coche.getTipo()==ElementoMovil.TIPOS_ELEMENTOS.COCHE)       // E un coche enton necesitamos situalo un pouco a dereita se non vai pisando o autobus
+								coche.setPosicion(Mundo.TAMANO_MUNDO_ANCHO+Mundo.TAMANO_AUTOBUSES.x-Mundo.TAMANO_COCHES.x, coche.getPosicion().y);
+						else
+								coche.setPosicion(Mundo.TAMANO_MUNDO_ANCHO, coche.getPosicion().y);
+				}
+			}
+		}
+	}
 
-        private void controlarRocas(float delta){
-                for(ElementoMovil roca: meuMundo.getRocas()){
-                	roca.update(delta);
-					if (roca.getVelocidade()>0){   // izq a drta
-							if (roca.getPosicion().x>=Mundo.TAMANO_MUNDO_ANCHO){
-									roca.setPosicion(-Mundo.TAMANO_ROCA.x, roca.getPosicion().y);
-							}
-					} else{   // drta a izq
-						if (roca.getPosicion().x<= -Mundo.TAMANO_ROCA.x){
-							roca.setPosicion(Mundo.TAMANO_MUNDO_ANCHO, roca.getPosicion().y);
-						}
+	private void controlarRocas(float delta){
+		for(ElementoMovil roca: meuMundo.getRocas()){
+			roca.update(delta);
+			if (roca.getVelocidade()>0){   // izq a drta
+					if (roca.getPosicion().x>=Mundo.TAMANO_MUNDO_ANCHO){
+							roca.setPosicion(-Mundo.TAMANO_ROCA.x, roca.getPosicion().y);
 					}
-                }
-        }
+			} else{   // drta a izq
+				if (roca.getPosicion().x<= -Mundo.TAMANO_ROCA.x){
+					roca.setPosicion(Mundo.TAMANO_MUNDO_ANCHO, roca.getPosicion().y);
+				}
+			}
+		}
+	}
 
 	private void controlarTroncos(float delta){
 		for(ElementoMovil tronco: meuMundo.getTroncos()) {
@@ -96,7 +113,12 @@ public class ControladorJuego {
 				nave.setVelocidade(-1*nave.getVelocidade());
 			}
 		}
+	}
 
+	private void controlarAlien(float delta){
+
+		// Actualiza Alien
+		alien.update(delta);
 	}
 
 	public void update(float delta){
@@ -104,6 +126,43 @@ public class ControladorJuego {
 		controlarCoches(delta);
 		controlarRocas(delta);
 		controlarTroncos(delta);
+		controlarAlien(delta);
+
+		procesarEntradas();
+	}
+
+	/**
+	 * Modifica o estado do mapa de teclas e pon a true
+	 * @param tecla: tecla pulsada
+	 */
+	public void pulsarTecla(Keys tecla){
+		keys.put(tecla, true);
+	}
+
+	/**
+	 * Modifica o estado do mapa de teclas e pon a false
+	 * @param tecla: tecla liberada
+	 */
+	public void liberarTecla(Keys tecla){
+		keys.put(tecla, false);
+	}
+
+	private void procesarEntradas(){
+
+		if (keys.get(Keys.DEREITA))
+			alien.setVelocidadeX(alien.velocidade_max);
+		if (keys.get(Keys.ESQUERDA))
+			alien.setVelocidadeX(-alien.velocidade_max);
+		if (!(keys.get(Keys.ESQUERDA)) && (!(keys.get(Keys.DEREITA))))
+			alien.setVelocidadeX(0);
+
+		if (keys.get(Keys.ARRIBA))
+			alien.setVelocidadeY(alien.velocidade_max);
+		if (keys.get(Keys.ABAIXO))
+			alien.setVelocidadeY(-alien.velocidade_max);
+		if (!(keys.get(Keys.ARRIBA)) && (!(keys.get(Keys.ABAIXO))))
+			alien.setVelocidadeY(0);
+
 	}
 
 }
