@@ -15,6 +15,7 @@ import com.my29bpdj.game.AssetsJuego;
 import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
+import com.my29bpdj.modelo.Mariposa;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
 
@@ -62,6 +63,7 @@ public class RendererJuego implements InputProcessor{
 		dibujarCoches();
 		dibujarRocas();
 		dibujarTroncos();
+		dibujarMariposa();
 		dibujarAlien();
 		dibujarControles();
 		spritebatch.end();
@@ -88,6 +90,15 @@ public class RendererJuego implements InputProcessor{
 		spritebatch.draw(currentFrame, nave.getPosicion().x,
 						nave.getPosicion().y, nave.getTamano().x,
 						nave.getTamano().y);
+	}
+
+	private void dibujarMariposa(){
+		Mariposa mariposa = meuMundo.getMariposa();
+		crono+=Gdx.graphics.getDeltaTime();
+		TextureRegion currentFrame = (TextureRegion) AssetsJuego.mariposaAnimacion.getKeyFrame(crono, true);
+		spritebatch.draw(currentFrame, mariposa.getPosicion().x,
+				mariposa.getPosicion().y, mariposa.getTamano().x,
+				mariposa.getTamano().y);
 	}
 
 	private void dibujarCoches(){

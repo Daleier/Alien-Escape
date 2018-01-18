@@ -17,6 +17,7 @@ public class Mundo {
 
     private Alien alien;
     private Nave nave;
+    private Mariposa mariposa;
     private Array<ElementoMovil>coches;
     private Array<ElementoMovil>rocas;
 	private Array<ElementoMovil>troncos;
@@ -25,6 +26,7 @@ public class Mundo {
 	public Mundo(){
         alien = new Alien(new Vector2(100,20), new Vector2(15,15),this.TAMANO_MUNDO_ANCHO/3);
         nave = new Nave(new Vector2(0,480), new Vector2(40,20), 60);
+        mariposa = new Mariposa(new Vector2(150,400), new Vector2(30,25),50);
 
         coches = new Array<ElementoMovil>();
         addCoches();
@@ -94,6 +96,10 @@ public class Mundo {
 
     public Nave getNave(){
         return nave;
+    }
+
+    public Mariposa getMariposa() {
+        return mariposa;
     }
 
     public Array<ElementoMovil>getCoches(){

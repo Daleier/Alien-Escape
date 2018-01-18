@@ -2,9 +2,11 @@ package com.my29bpdj.controlador;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
+import com.my29bpdj.modelo.Mariposa;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
 
@@ -16,6 +18,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class ControladorJuego {
 	Mundo meuMundo;
 	private Alien alien;
+	private Mariposa mariposa;
 
 
 	public enum Keys {
@@ -33,6 +36,7 @@ public class ControladorJuego {
 	public ControladorJuego(Mundo mundo){
 		this.meuMundo=mundo;
 		this.alien=meuMundo.getAlien();
+		this.mariposa=meuMundo.getMariposa();
 	}
 
 	private void controlarCoches(float delta) {
@@ -142,11 +146,19 @@ public class ControladorJuego {
 		}
 	}
 
+	private void controlarMariposa(float delta){
+		mariposa.puntoDestino.set(alien.getPosicion());
+		Vector2 direccion = alien.getPosicion();
+		mariposa.direccion.set(direccion.nor());
+		mariposa.update(delta);
+	}
+
 	public void update(float delta){
 		controlarNave(delta);
 		controlarCoches(delta);
 		controlarRocas(delta);
 		controlarTroncos(delta);
+		controlarMariposa(delta);
 		controlarAlien(delta);
 
 		procesarEntradas();

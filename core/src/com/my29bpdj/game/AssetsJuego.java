@@ -20,6 +20,7 @@ public class AssetsJuego {
 		public static Texture texturePuntoNegro;
 		public static Animation naveAnimacion;
 		public static Texture textureCursor;
+		public static Animation mariposaAnimacion;
 
 
 		/**
@@ -56,29 +57,56 @@ public class AssetsJuego {
 //                libgdx_puntonegro.jpg (texturePuntoNegro)
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_puntonegro.jpg");
 			texturePuntoNegro = new Texture(imageFileHandle);
+
 //				Animación nave
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_spaceship.png");
-			Texture textureAnimNave = new Texture(imageFileHandle);
-			TextureRegion[][] tmp = TextureRegion.split(textureAnimNave,200,110);
-			int num_columnas = tmp[0].length;
-			int num_filas = tmp.length;
-			TextureRegion[] framesanimacion = new TextureRegion[num_columnas*num_filas-1];
-			int cont=0;
-			for(int fila=0; fila<num_filas;fila++){
-				for(int col=0; col<num_columnas;col++){
-					if (!((fila==1)&&(col==0))) {
-						framesanimacion[cont] = tmp[fila][col];
-						cont++;
-					}
-				}
-			}
-			naveAnimacion = new Animation(0.15f, framesanimacion);
+			generarTexturaNave(imageFileHandle);
+
 		// Cursor
 			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_controis.png");
 			textureCursor = new Texture(imageFileHandle);
+
+		// Animación mariposa
+			imageFileHandle = Gdx.files.internal("graficos/butterfly.png");
+			generarTexturaMariposa(imageFileHandle);
+
 		}
 
-		/**
+	private static void generarTexturaMariposa(FileHandle imageFileHandle) {
+		Texture textureAnimMariposa = new Texture(imageFileHandle);
+		TextureRegion[][] tmp = TextureRegion.split(textureAnimMariposa,30,25);
+		int num_columnas = tmp[0].length;
+		int num_filas = 7;
+		TextureRegion[] framesanimacion = new TextureRegion[num_columnas*num_filas-1];
+		int cont=0;
+		for(int fila=0; fila<num_filas;fila++){
+			for(int col=0; col<num_columnas;col++){
+				framesanimacion[cont] = tmp[fila][col];
+				cont++;
+			}
+		}
+		mariposaAnimacion = new Animation(0.15f, framesanimacion);
+	}
+
+	private static void generarTexturaNave(FileHandle imageFileHandle) {
+		Texture textureAnimNave = new Texture(imageFileHandle);
+		TextureRegion[][] tmp = TextureRegion.split(textureAnimNave,200,110);
+		int num_columnas = tmp[0].length;
+		int num_filas = tmp.length;
+		TextureRegion[] framesanimacion = new TextureRegion[num_columnas*num_filas-1];
+		int cont=0;
+		for(int fila=0; fila<num_filas;fila++){
+			for(int col=0; col<num_columnas;col++){
+				if (!((fila==1)&&(col==0))) {
+					framesanimacion[cont] = tmp[fila][col];
+					cont++;
+				}
+			}
+		}
+		naveAnimacion = new Animation(0.15f, framesanimacion);
+	}
+
+	/**
 		* Método encargado de liberar todas as texturas
 		*/
 		public static void liberarTexturas(){

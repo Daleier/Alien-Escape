@@ -1,6 +1,7 @@
 package com.my29bpdj.modelo;
 
-import java.awt.Rectangle;
+
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Created by dam203 on 18/01/2018.
