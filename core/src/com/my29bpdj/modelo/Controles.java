@@ -8,5 +8,6 @@ import java.awt.Rectangle;
 
 public class Controles {
 	public final static Rectangle FONDO_NEGRO = new Rectangle(0,0,Mundo.TAMANO_MUNDO_ANCHO,12);
+	public final static Rectangle CONTROL = new Rectangle(10,40,50,70);
 
 }

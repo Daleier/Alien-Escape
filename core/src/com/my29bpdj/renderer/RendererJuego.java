@@ -1,5 +1,6 @@
 package com.my29bpdj.renderer;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -127,12 +128,19 @@ public class RendererJuego implements InputProcessor{
 		// Fondo negro
 		spritebatch.draw(AssetsJuego.texturePuntoNegro, Controles.FONDO_NEGRO.x,Controles.FONDO_NEGRO.y,
 				Controles.FONDO_NEGRO.width, Controles.FONDO_NEGRO.height);
+//		if (Gdx.app.getType()== Application.ApplicationType.Android)
+			spritebatch.draw(AssetsJuego.textureCursor,Controles.CONTROL.x,Controles.CONTROL.y,
+					Controles.CONTROL.width, Controles.CONTROL.height);
+	}
+
+	public OrthographicCamera getCamara2d(){
+		return this.camara2d;
 	}
 
 	/**
      * Debuxa os gráficos en forma de figuras xeométricas
      */
-    private void debugger(){
+	private void debugger(){
         shaperender.begin(ShapeRenderer.ShapeType.Line);
         shaperender.setColor(Color.BLUE);
         shaperender.end();

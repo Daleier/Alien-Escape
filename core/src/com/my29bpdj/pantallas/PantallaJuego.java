@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.controlador.ControladorJuego;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.modelo.Mundo;
@@ -123,6 +124,8 @@ public class PantallaJuego implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Vector3 temporal= new Vector3(screenX,screenY,0);
+		this.rendererxogo.getCamara2d().unproject(temporal);
         return false;
     }
 

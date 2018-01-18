@@ -19,6 +19,7 @@ public class AssetsJuego {
 		public static Texture textureTronco;
 		public static Texture texturePuntoNegro;
 		public static Animation naveAnimacion;
+		public static Texture textureCursor;
 
 
 		/**
@@ -72,8 +73,10 @@ public class AssetsJuego {
 				}
 			}
 			naveAnimacion = new Animation(0.15f, framesanimacion);
+		// Cursor
+			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_controis.png");
+			textureCursor = new Texture(imageFileHandle);
 		}
-
 
 		/**
 		* Método encargado de liberar todas as texturas
@@ -89,5 +92,6 @@ public class AssetsJuego {
 			textureRoca.dispose();
 			textureTronco.dispose();
 			texturePuntoNegro.dispose();
+			textureCursor.dispose();
 		}
 }
