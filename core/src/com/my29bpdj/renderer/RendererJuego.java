@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.game.AssetsJuego;
 import com.my29bpdj.modelo.Alien;
+import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
@@ -61,6 +62,7 @@ public class RendererJuego implements InputProcessor{
 		dibujarRocas();
 		dibujarTroncos();
 		dibujarAlien();
+		dibujarControles();
 		spritebatch.end();
 
         if (debugger){
@@ -121,7 +123,13 @@ public class RendererJuego implements InputProcessor{
 
 	}
 
-    /**
+	private void dibujarControles(){
+		// Fondo negro
+		spritebatch.draw(AssetsJuego.texturePuntoNegro, Controles.FONDO_NEGRO.x,Controles.FONDO_NEGRO.y,
+				Controles.FONDO_NEGRO.width, Controles.FONDO_NEGRO.height);
+	}
+
+	/**
      * Debuxa os gráficos en forma de figuras xeométricas
      */
     private void debugger(){
