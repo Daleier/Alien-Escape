@@ -3,6 +3,7 @@ package com.my29bpdj.controlador;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.my29bpdj.modelo.Alien;
+import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
@@ -116,9 +117,29 @@ public class ControladorJuego {
 	}
 
 	private void controlarAlien(float delta){
-
 		// Actualiza Alien
 		alien.update(delta);
+
+		// Impide que se mova fora dos límites da pantalla
+		if (alien.getPosicion().x <=0){
+			alien.setPosicion(0, alien.getPosicion().y);
+		}
+		else {
+			if (alien.getPosicion().x >= Mundo.TAMANO_MUNDO_ANCHO-alien.getTamano().x){
+				alien.setPosicion(Mundo.TAMANO_MUNDO_ANCHO-alien.getTamano().x, alien.getPosicion().y);
+			}
+
+		}
+
+		if (alien.getPosicion().y <= Controles.FONDO_NEGRO.height){
+			alien.setPosicion(alien.getPosicion().x,Controles.FONDO_NEGRO.height);
+		}
+		else {
+			if (alien.getPosicion().y >= Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y){
+				alien.setPosicion(alien.getPosicion().x, Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y);
+			}
+
+		}
 	}
 
 	public void update(float delta){
