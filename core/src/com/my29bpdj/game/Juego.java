@@ -6,6 +6,7 @@ package com.my29bpdj.game;
 
 import com.badlogic.gdx.Game;
 import com.my29bpdj.pantallas.PantallaJuego;
+import com.my29bpdj.renderer.RendererJuego;
 
 public class Juego extends Game {
 

@@ -99,11 +99,10 @@ public class RendererJuego implements InputProcessor{
 		Mariposa mariposa = meuMundo.getMariposa();
 		crono2+=delta;
 		TextureRegion currentFrame = (TextureRegion) AssetsJuego.mariposaAnimacion.getKeyFrame(crono2, true);
-		if (mariposa.getPosicion()==null)
-			System.out.println("Mariposa mal");
 		spritebatch.draw(currentFrame, mariposa.getPosicion().x,
 				mariposa.getPosicion().y, mariposa.getTamano().x,
 				mariposa.getTamano().y);
+
 	}
 
 	private void dibujarCoches(){
@@ -172,6 +171,7 @@ public class RendererJuego implements InputProcessor{
     public void dispose() {
         Gdx.input.setInputProcessor(null);
         spritebatch.dispose();
+        shaperender.dispose();
     }
 
 
