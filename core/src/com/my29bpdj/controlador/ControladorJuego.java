@@ -147,8 +147,8 @@ public class ControladorJuego {
 	}
 
 	private void controlarMariposa(float delta){
-		mariposa.puntoDestino.set(alien.getPosicion());
-		Vector2 direccion = alien.getPosicion();
+		mariposa.puntoDestino.set(new Vector2(alien.getPosicion().x, alien.getPosicion().y));
+		Vector2 direccion = mariposa.puntoDestino.cpy().sub(mariposa.posicion);
 		mariposa.direccion.set(direccion.nor());
 		mariposa.update(delta);
 	}
