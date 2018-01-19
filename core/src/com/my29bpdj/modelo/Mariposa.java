@@ -11,7 +11,7 @@ public class Mariposa extends Personaje {
    
    
     public Mariposa(Vector2 posicion, Vector2 tamano, float velocidade_max) {
- 
+        super(posicion, tamano, velocidade_max);
         this.posicion=posicion;
         this.tamano = tamano;
         this.velocidade_max=velocidade_max;

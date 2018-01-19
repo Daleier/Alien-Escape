@@ -33,6 +33,8 @@ public class RendererJuego implements InputProcessor{
 	private ShapeRenderer shaperender;
 	private Mundo meuMundo;
 	private float crono;
+	private float crono2;
+
 
 
 
@@ -43,6 +45,7 @@ public class RendererJuego implements InputProcessor{
 		shaperender = new ShapeRenderer();
 		temporal = new Vector3();
 		crono = 0;
+		crono2=0;
 		Gdx.input.setInputProcessor(this);
 
 	}
@@ -63,7 +66,7 @@ public class RendererJuego implements InputProcessor{
 		dibujarCoches();
 		dibujarRocas();
 		dibujarTroncos();
-		dibujarMariposa();
+		dibujarMariposa(delta);
 		dibujarAlien();
 		dibujarControles();
 		spritebatch.end();
@@ -92,10 +95,12 @@ public class RendererJuego implements InputProcessor{
 						nave.getTamano().y);
 	}
 
-	private void dibujarMariposa(){
+	private void dibujarMariposa(float delta){
 		Mariposa mariposa = meuMundo.getMariposa();
-		crono+=Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = (TextureRegion) AssetsJuego.mariposaAnimacion.getKeyFrame(crono, true);
+		crono2+=delta;
+		TextureRegion currentFrame = (TextureRegion) AssetsJuego.mariposaAnimacion.getKeyFrame(crono2, true);
+		if (mariposa.getPosicion()==null)
+			System.out.println("Mariposa mal");
 		spritebatch.draw(currentFrame, mariposa.getPosicion().x,
 				mariposa.getPosicion().y, mariposa.getTamano().x,
 				mariposa.getTamano().y);
