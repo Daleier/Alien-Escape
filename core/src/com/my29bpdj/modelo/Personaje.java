@@ -1,14 +1,14 @@
 package com.my29bpdj.modelo;
  
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
  
 public abstract class Personaje {
- 
-        /**
-         * Constructor por defecto
-         */
+
+        private Rectangle rectangulo;
+
         public Personaje(){
-               
+                rectangulo = new Rectangle();
         }
         /**
          * Instancia unha personaxe
@@ -21,8 +21,31 @@ public abstract class Personaje {
                 this.posicion = posicion;
                 this.tamano = tamano;
                 this.velocidade_max = velocidade_max;
+                rectangulo = new Rectangle(posicion.x,posicion.y,tamano.x,tamano.y);
         }
- 
+
+        public void setTamanoRectangulo(float width,float height){
+                rectangulo.setWidth(width);
+                rectangulo.setHeight(height);
+        }
+
+        /**
+         * Actualiza a posición do rectángulo asociado á forma do gráfico
+         *
+         */
+        public void actualizarRectangulo(){
+                rectangulo.x=posicion.x;
+                rectangulo.y=posicion.y;
+        }
+
+        /**
+         * Devolve o rectángulo asociado
+         * @return rectangulo
+         */
+        public Rectangle getRectangulo(){
+                return rectangulo;
+        }
+
         /**
          * Velocidade que toma cando se move.
          */
@@ -54,6 +77,7 @@ public abstract class Personaje {
          */
         public void setPosicion(Vector2 posicion) {
                 this.posicion = posicion;
+                actualizarRectangulo();
         }
  
         /**
@@ -65,6 +89,7 @@ public abstract class Personaje {
         public void setPosicion(float x, float y) {
                 posicion.x = x;
                 posicion.y = y;
+                actualizarRectangulo();
         }
  
         /**
@@ -99,8 +124,14 @@ public abstract class Personaje {
          */
         public void setTamano(float width, float height) {
                 this.tamano.set(width,height);
+                setTamanoRectangulo(width, height);
         }
-       
+
+        public void setTamano(Vector2 tamano) {
+                this.tamano=tamano;
+                setTamanoRectangulo(tamano.x,tamano.y);
+        }
+
         /**
          * Actualiza a posición en función da velocidade
          * @param delta: tempo entre unha chamada e a seguinte

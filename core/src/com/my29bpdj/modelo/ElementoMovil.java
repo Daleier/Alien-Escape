@@ -20,6 +20,6 @@ public class ElementoMovil extends Personaje {
 
         @Override
         public void update(float delta) {
-                posicion.add((velocidade*delta),0);
+                setPosicion(posicion.add((velocidade*delta),0));
         }
 }

@@ -1,5 +1,6 @@
 package com.my29bpdj.controlador;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.my29bpdj.modelo.Alien;
@@ -24,8 +25,7 @@ public class ControladorJuego {
         IZQUIERDA, DERECHA,ARRIBA, ABAJO
 	}
 
-	HashMap<Keys, Boolean> keys = new HashMap<ControladorJuego.Keys, Boolean>();
-	{
+	HashMap<Keys, Boolean> keys = new HashMap<ControladorJuego.Keys, Boolean>();{
 		keys.put(Keys.IZQUIERDA, false);
 		keys.put(Keys.DERECHA, false);
 		keys.put(Keys.ARRIBA, false);
@@ -141,7 +141,19 @@ public class ControladorJuego {
 			if (alien.getPosicion().y >= Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y){
 				alien.setPosicion(alien.getPosicion().x, Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y);
 			}
+		}
 
+		// Controla que suba enriba dun elemento móvil
+		alien.setVelocidadMontado(0);
+		for (ElementoMovil elem : meuMundo.getRocas()){
+			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
+				alien.setVelocidadMontado(elem.getVelocidade());
+			}
+		}
+		for (ElementoMovil elem : meuMundo.getTroncos()){
+			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
+				alien.setVelocidadMontado(elem.getVelocidade());
+			}
 		}
 	}
 
