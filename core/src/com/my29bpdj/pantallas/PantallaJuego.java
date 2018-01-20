@@ -8,9 +8,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.controlador.ControladorJuego;
 import com.my29bpdj.game.Juego;
+import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.renderer.RendererJuego;
 
@@ -76,23 +79,23 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
 // Liberamos as teclas para que se arrastramos o dedo a outro control sen soltar o anterior non xunte o efecto
-		controladorJuego.liberarTecla(ControladorJuego.Keys.ABAIXO);
+		controladorJuego.liberarTecla(ControladorJuego.Keys.ABAJO);
 		controladorJuego.liberarTecla(ControladorJuego.Keys.ARRIBA);
-		controladorJuego.liberarTecla(ControladorJuego.Keys.ESQUERDA);
-		controladorJuego.liberarTecla(ControladorJuego.Keys.DEREITA);
+		controladorJuego.liberarTecla(ControladorJuego.Keys.IZQUIERDA);
+		controladorJuego.liberarTecla(ControladorJuego.Keys.DERECHA);
 
 		switch(keycode){
 			case Input.Keys.UP:
 				controladorJuego.pulsarTecla(ControladorJuego.Keys.ARRIBA);
 				break;
 			case Input.Keys.DOWN:
-				controladorJuego.pulsarTecla(ControladorJuego.Keys.ABAIXO);
+				controladorJuego.pulsarTecla(ControladorJuego.Keys.ABAJO);
 				break;
 			case Input.Keys.LEFT:
-				controladorJuego.pulsarTecla(ControladorJuego.Keys.ESQUERDA);
+				controladorJuego.pulsarTecla(ControladorJuego.Keys.IZQUIERDA);
 				break;
 			case Input.Keys.RIGHT:
-				controladorJuego.pulsarTecla(ControladorJuego.Keys.DEREITA);
+				controladorJuego.pulsarTecla(ControladorJuego.Keys.DERECHA);
 				break;
 		}
 
@@ -106,13 +109,13 @@ public class PantallaJuego implements Screen, InputProcessor {
 				controladorJuego.liberarTecla(ControladorJuego.Keys.ARRIBA);
 				break;
 			case Input.Keys.DOWN:
-				controladorJuego.liberarTecla(ControladorJuego.Keys.ABAIXO);
+				controladorJuego.liberarTecla(ControladorJuego.Keys.ABAJO);
 				break;
 			case Input.Keys.LEFT:
-				controladorJuego.liberarTecla(ControladorJuego.Keys.ESQUERDA);
+				controladorJuego.liberarTecla(ControladorJuego.Keys.IZQUIERDA);
 				break;
 			case Input.Keys.RIGHT:
-				controladorJuego.liberarTecla(ControladorJuego.Keys.DEREITA);
+				controladorJuego.liberarTecla(ControladorJuego.Keys.DERECHA);
 				break;
 		}
 		return false;    }
@@ -126,11 +129,25 @@ public class PantallaJuego implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Vector3 temporal= new Vector3(screenX,screenY,0);
 		this.rendererxogo.getCamara2d().unproject(temporal);
+        if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_IZQUIERDA)){
+            controladorJuego.pulsarTecla(ControladorJuego.Keys.IZQUIERDA);
+        } else if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_DERECHA)){
+            controladorJuego.pulsarTecla(ControladorJuego.Keys.DERECHA);
+        } else if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_ARRIBA)){
+            controladorJuego.pulsarTecla(ControladorJuego.Keys.ARRIBA);
+        } else if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_ABAJO)){
+            controladorJuego.pulsarTecla(ControladorJuego.Keys.ABAJO);
+        }
+
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        controladorJuego.liberarTecla(ControladorJuego.Keys.IZQUIERDA);
+        controladorJuego.liberarTecla(ControladorJuego.Keys.DERECHA);
+        controladorJuego.liberarTecla(ControladorJuego.Keys.ARRIBA);
+        controladorJuego.liberarTecla(ControladorJuego.Keys.ABAJO);
         return false;
     }
 

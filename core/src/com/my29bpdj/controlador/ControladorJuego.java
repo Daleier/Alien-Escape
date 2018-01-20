@@ -2,7 +2,6 @@ package com.my29bpdj.controlador;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
@@ -22,15 +21,15 @@ public class ControladorJuego {
 
 
 	public enum Keys {
-		ESQUERDA,DEREITA,ARRIBA,ABAIXO
+        IZQUIERDA, DERECHA,ARRIBA, ABAJO
 	}
 
 	HashMap<Keys, Boolean> keys = new HashMap<ControladorJuego.Keys, Boolean>();
 	{
-		keys.put(Keys.ESQUERDA, false);
-		keys.put(Keys.DEREITA, false);
+		keys.put(Keys.IZQUIERDA, false);
+		keys.put(Keys.DERECHA, false);
 		keys.put(Keys.ARRIBA, false);
-		keys.put(Keys.ABAIXO, false);
+		keys.put(Keys.ABAJO, false);
 	};
        
 	public ControladorJuego(Mundo mundo){
@@ -182,18 +181,18 @@ public class ControladorJuego {
 
 	private void procesarEntradas(){
 
-		if (keys.get(Keys.DEREITA))
+		if (keys.get(Keys.DERECHA))
 			alien.setVelocidadeX(alien.velocidade_max);
-		if (keys.get(Keys.ESQUERDA))
+		if (keys.get(Keys.IZQUIERDA))
 			alien.setVelocidadeX(-alien.velocidade_max);
-		if (!(keys.get(Keys.ESQUERDA)) && (!(keys.get(Keys.DEREITA))))
+		if (!(keys.get(Keys.IZQUIERDA)) && (!(keys.get(Keys.DERECHA))))
 			alien.setVelocidadeX(0);
 
 		if (keys.get(Keys.ARRIBA))
 			alien.setVelocidadeY(alien.velocidade_max);
-		if (keys.get(Keys.ABAIXO))
+		if (keys.get(Keys.ABAJO))
 			alien.setVelocidadeY(-alien.velocidade_max);
-		if (!(keys.get(Keys.ARRIBA)) && (!(keys.get(Keys.ABAIXO))))
+		if (!(keys.get(Keys.ARRIBA)) && (!(keys.get(Keys.ABAJO))))
 			alien.setVelocidadeY(0);
 
 	}

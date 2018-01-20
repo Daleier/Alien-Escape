@@ -94,7 +94,6 @@ public class AssetsJuego {
 			else
 				break;
 		}
-		System.out.println(a);
 		TextureRegion[] framesanimacion = Arrays.copyOf(framesanimacionTemp,a);
 		mariposaAnimacion = new Animation(0.15f, framesanimacion);
 	}
