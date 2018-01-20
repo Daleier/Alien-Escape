@@ -20,7 +20,12 @@ public class Mariposa extends Personaje {
         direccion = new Vector2(0,0);
         puntoDestino = new Vector2();
     }
- 
+
+    public void inicializarMariposa(){
+        setPosicion(150,400);
+        setTamano(30,25);
+    }
+
     public void update(float delta){
         temporal.set(direccion);
         posicion.add(temporal.scl(velocidade_max*delta));

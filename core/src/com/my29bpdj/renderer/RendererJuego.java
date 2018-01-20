@@ -69,6 +69,7 @@ public class RendererJuego implements InputProcessor{
 		dibujarMariposa(delta);
 		dibujarAlien();
 		dibujarControles();
+		dibujarVidas();
 		spritebatch.end();
 
         if (debugger){
@@ -102,7 +103,6 @@ public class RendererJuego implements InputProcessor{
 		spritebatch.draw(currentFrame, mariposa.getPosicion().x,
 				mariposa.getPosicion().y, mariposa.getTamano().x,
 				mariposa.getTamano().y);
-
 	}
 
 	private void dibujarCoches(){
@@ -146,6 +146,22 @@ public class RendererJuego implements InputProcessor{
 //		if (Gdx.app.getType()== Application.ApplicationType.Android)
 			spritebatch.draw(AssetsJuego.textureCursor,Controles.CONTROL.x,Controles.CONTROL.y,
 					Controles.CONTROL.width, Controles.CONTROL.height);
+	}
+
+	private void dibujarVidas(){
+		Texture textura;
+		int posx=Controles.POSVIDAS;
+		for(Alien.TIPOS_VIDA vida : meuMundo.getAlien().getNumVidas()){
+			if(vida == Alien.TIPOS_VIDA.MUERTO)
+				textura = AssetsJuego.textureAlienDead;
+			else if(vida == Alien.TIPOS_VIDA.SALVADO)
+				textura = AssetsJuego.textureAlienRescue;
+			else
+				textura = AssetsJuego.textureAlien;
+
+			spritebatch.draw(textura,posx,0,10,10);
+			posx+=12;
+		}
 	}
 
 	public OrthographicCamera getCamara2d(){

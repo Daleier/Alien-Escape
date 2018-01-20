@@ -19,6 +19,7 @@ public class ControladorJuego {
 	Mundo meuMundo;
 	private Alien alien;
 	private Mariposa mariposa;
+	private Nave nave;
 
 
 	public enum Keys {
@@ -36,6 +37,7 @@ public class ControladorJuego {
 		this.meuMundo=mundo;
 		this.alien=meuMundo.getAlien();
 		this.mariposa=meuMundo.getMariposa();
+		this.nave = meuMundo.getNave();
 	}
 
 	private void controlarCoches(float delta) {
@@ -158,7 +160,8 @@ public class ControladorJuego {
         // Controla se lle colle un vehículo
         for (ElementoMovil elem : meuMundo.getCoches()){
             if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
-                // ALIEN MORTO
+                alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+                alien.inicializarAlien();
             }
         }
         // Controla se cae a auga ou lava
@@ -174,14 +177,22 @@ public class ControladorJuego {
             if (!seguro) {
                 for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
                     if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
-                        // ALIEN MORRE
+                        alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+                        alien.inicializarAlien();
                     }
                 }
             }
         }
         // Controla se mariposa toca o alien
         if (Intersector.overlaps(mariposa.getRectangulo(), alien.getRectangulo())){
-            // ALIEN MORE
+            alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+            alien.inicializarAlien();
+            mariposa.inicializarMariposa();
+        }
+        // Controla si alien llega a la nave
+        if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())){
+            alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
+            alien.inicializarAlien();
         }
 	}
 
