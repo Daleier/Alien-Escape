@@ -1,5 +1,6 @@
 package com.my29bpdj.modelo;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 /**
@@ -13,7 +14,10 @@ public class Mundo {
     public final static Vector2 TAMANO_AUTOBUSES = new Vector2(30,15);
     public final static Vector2 TAMANO_ROCA = new Vector2(60,60);
 	public final static Vector2 TAMANO_TRONCO = new Vector2(80,40);
-
+    public static final Rectangle ZONAS_PERIGOSAS[]={new Rectangle(0,40,300,120),
+            new Rectangle(0,220,300,120), new Rectangle(0,420,300,80)};
+    public static final Rectangle ZONAS_SEGURAS[]={new Rectangle(40,420,20,60),
+            new Rectangle(140,420,20,60), new Rectangle(240,420,20,60)};  // AS PLATAFORMAS QUE ESTAN ENRIBA DA LAVA.
 
     private Alien alien;
     private Nave nave;

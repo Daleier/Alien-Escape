@@ -155,6 +155,34 @@ public class ControladorJuego {
 				alien.setVelocidadMontado(elem.getVelocidade());
 			}
 		}
+        // Controla se lle colle un vehículo
+        for (ElementoMovil elem : meuMundo.getCoches()){
+            if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
+                // ALIEN MORTO
+            }
+        }
+        // Controla se cae a auga ou lava
+        if (alien.getVelocidadMontado()==0) {
+            boolean seguro = false;
+            // Se está nunha zona segura xa non mira as perigosas
+            for (int cont = 0; cont < Mundo.ZONAS_SEGURAS.length; cont++) {
+                if (Intersector.overlaps(Mundo.ZONAS_SEGURAS[cont], alien.getRectangulo())) {
+                    seguro = true;
+                    break;
+                }
+            }
+            if (!seguro) {
+                for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
+                    if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
+                        // ALIEN MORRE
+                    }
+                }
+            }
+        }
+        // Controla se mariposa toca o alien
+        if (Intersector.overlaps(mariposa.getRectangulo(), alien.getRectangulo())){
+            // ALIEN MORE
+        }
 	}
 
 	private void controlarMariposa(float delta){
