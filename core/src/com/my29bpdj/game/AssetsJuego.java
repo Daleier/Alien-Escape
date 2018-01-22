@@ -79,22 +79,14 @@ public class AssetsJuego {
 		TextureRegion[][] tmp = TextureRegion.split(textureAnimMariposa,30,25);
 		int num_columnas = tmp[0].length;
 		int num_filas = tmp.length;
-		TextureRegion[] framesanimacionTemp = new TextureRegion[num_columnas*num_filas-1];
+		TextureRegion[] framesanimacion = new TextureRegion[num_columnas*(num_filas-1)];
 		int cont=0;
 		for (int fila = 0; fila < num_filas-1; fila++) {
 			for (int col = 0; col < num_columnas; col++) {
-				framesanimacionTemp[cont] = tmp[fila][col];
+				framesanimacion[cont] = tmp[fila][col];
 				cont++;
 			}
 		}
-		int a = 0;
-		for (TextureRegion i: framesanimacionTemp) {
-			if(i!=null)
-				a++;
-			else
-				break;
-		}
-		TextureRegion[] framesanimacion = Arrays.copyOf(framesanimacionTemp,a);
 		mariposaAnimacion = new Animation(0.15f, framesanimacion);
 	}
 
