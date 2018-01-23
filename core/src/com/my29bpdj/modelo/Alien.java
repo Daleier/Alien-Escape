@@ -5,9 +5,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Alien extends Personaje{
 
-        private Vector2 velocidade;
-
-
+	private Vector2 velocidade;
 	private float velocidadMontado;
 	public static enum TIPOS_VIDA{INICIAL,SALVADO,MUERTO};
 	private Array<TIPOS_VIDA> numVidas;

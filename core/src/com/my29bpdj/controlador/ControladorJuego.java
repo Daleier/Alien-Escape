@@ -121,7 +121,7 @@ public class ControladorJuego {
 		}
 	}
 
-	private void controlarAlien(float delta){
+	private void controlarAlien(float delta){ //TODO refactorizar
 		// Actualiza Alien
 		alien.update(delta);
 
@@ -183,13 +183,14 @@ public class ControladorJuego {
                 }
             }
         }
-        // Controla se mariposa toca o alien
-        if (Intersector.overlaps(mariposa.getRectangulo(), alien.getRectangulo())){
-            alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+		// Controla se mariposa toca o alien
+        if (Intersector.overlaps(alien.getRectangulo(), mariposa.getRectangulo())){
+			alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
             alien.inicializarAlien();
             mariposa.inicializarMariposa();
         }
-        // Controla si alien llega a la nave
+
+		// Controla si alien llega a la nave
         if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())){
             alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
             alien.inicializarAlien();

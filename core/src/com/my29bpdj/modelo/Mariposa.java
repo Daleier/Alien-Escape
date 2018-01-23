@@ -24,11 +24,11 @@ public class Mariposa extends Personaje {
     public void inicializarMariposa(){
         setPosicion(150,400);
         setTamano(30,25);
-    }
+	}
 
     public void update(float delta){
         temporal.set(direccion);
-        posicion.add(temporal.scl(velocidade_max*delta));
+		setPosicion(posicion.add(temporal.scl(velocidade_max*delta)));
     }
 
 }

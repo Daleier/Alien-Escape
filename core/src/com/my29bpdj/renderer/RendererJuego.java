@@ -174,6 +174,8 @@ public class RendererJuego implements InputProcessor{
 	private void debugger(){
         shaperender.begin(ShapeRenderer.ShapeType.Line);
         shaperender.setColor(Color.BLUE);
+        shaperender.box(meuMundo.getMariposa().getRectangulo().getX(), meuMundo.getMariposa().getRectangulo().getY(),0,
+				meuMundo.getMariposa().getRectangulo().getWidth(),meuMundo.getMariposa().getRectangulo().getHeight(),0);
         shaperender.end();
     }
 
