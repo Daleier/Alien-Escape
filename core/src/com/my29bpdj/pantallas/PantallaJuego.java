@@ -10,15 +10,17 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.controlador.ControladorJuego;
 import com.my29bpdj.game.Juego;
+import com.my29bpdj.game.Utiles;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.renderer.RendererJuego;
 
 public class PantallaJuego implements Screen, InputProcessor {
-    private boolean pause;
+    public static boolean pause;
     private boolean finXogo;
     private boolean sair;
     private Mundo meuMundo;
@@ -40,6 +42,20 @@ public class PantallaJuego implements Screen, InputProcessor {
     public void render(float delta) {
         controladorJuego.update(delta);
         rendererxogo.render(delta);
+
+		if (meuMundo.getAlien().getNumVidas().size>=15){
+			finXogo=true;
+		}
+		if (pause){
+			meuxogogame.setScreen(new PantallaPause(meuxogogame, this));
+			return;
+		}
+		if (finXogo){
+			Utiles.imprimirLog("PantallaJuego", "render","finXogo");
+			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
+			// Facemos o return xa que continua a execución ata que remate o render.
+			return;
+		}
     }
 
     @Override
@@ -50,7 +66,8 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-    }
+		pause=false;
+	}
 
     @Override
     public void hide() {
@@ -61,13 +78,16 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void pause() {
         Gdx.input.setInputProcessor(null);
+		if (!finXogo) {
+			pause = true;
+		}
 
     }
 
     @Override
     public void resume() {
         Gdx.input.setInputProcessor(this);
-
+		pause=false;
     }
 
     @Override
@@ -129,6 +149,8 @@ public class PantallaJuego implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Vector3 temporal= new Vector3(screenX,screenY,0);
 		this.rendererxogo.getCamara2d().unproject(temporal);
+		Circle dedo = new Circle(temporal.x,temporal.y,2);
+
         if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_IZQUIERDA)){
             controladorJuego.pulsarTecla(ControladorJuego.Keys.IZQUIERDA);
         } else if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_DERECHA)){
@@ -138,7 +160,17 @@ public class PantallaJuego implements Screen, InputProcessor {
         } else if (Intersector.overlaps(new Circle(temporal.x, temporal.y, 2), Controles.FLECHA_ABAJO)){
             controladorJuego.pulsarTecla(ControladorJuego.Keys.ABAJO);
         }
-
+        // Controles pausa y salir
+		Rectangle recTemporal = new Rectangle();
+		recTemporal.set(Controles.CONTROL_PAUSE.x,Controles.CONTROL_PAUSE.y,Controles.CONTROL_PAUSE.width,Controles.CONTROL_PAUSE.height);
+		if (Intersector.overlaps(dedo, recTemporal)){
+			pause = true;
+		}
+		recTemporal.set(Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height);
+		if (Intersector.overlaps(dedo, recTemporal)){
+			dispose();
+			meuxogogame.setScreen(new PantallaPresentacion(meuxogogame));
+		}
         return false;
     }
 

@@ -19,5 +19,7 @@ public class Controles {
 	public final static Rectangle FLECHA_ABAJO = new Rectangle(Controles.CONTROL.x,Controles.CONTROL.y,
 			Controles.CONTROL.width,Controles.CONTROL.height/3);
 	public final static int POSVIDAS = 60;
+	public final static Rectangle CONTROL_PAUSE = new Rectangle(30,0,10,10);
+	public final static Rectangle CONTROL_SALIR = new Rectangle(45,0,10,10);
 
 }

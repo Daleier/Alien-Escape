@@ -10,8 +10,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Alien Escape 29BPDJ";
-		config.width = 480;
-		config.height = 800;
+		config.width = 450;
+		config.height = 750;
 		config.resizable=false;
 		config.addIcon("alienicon.png", Files.FileType.Internal);
 		new LwjglApplication(new Juego(), config);

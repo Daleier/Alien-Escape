@@ -29,7 +29,7 @@ public class RendererJuego implements InputProcessor{
 	private SpriteBatch spritebatch;
 	private OrthographicCamera camara2d;
 	private Vector3 temporal;
-	private boolean debugger=false;
+	private boolean debugger=true;
 	private ShapeRenderer shaperender;
 	private Mundo meuMundo;
 	private float crono;
@@ -146,6 +146,11 @@ public class RendererJuego implements InputProcessor{
 //		if (Gdx.app.getType()== Application.ApplicationType.Android)
 			spritebatch.draw(AssetsJuego.textureCursor,Controles.CONTROL.x,Controles.CONTROL.y,
 					Controles.CONTROL.width, Controles.CONTROL.height);
+
+		spritebatch.draw(AssetsJuego.texturePausa, Controles.CONTROL_PAUSE.x,Controles.CONTROL_PAUSE.y
+				,Controles.CONTROL_PAUSE.width,Controles.CONTROL_PAUSE.height);
+		spritebatch.draw(AssetsJuego.textureSalir, Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,
+				Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height);
 	}
 
 	private void dibujarVidas(){
@@ -173,9 +178,11 @@ public class RendererJuego implements InputProcessor{
      */
 	private void debugger(){
         shaperender.begin(ShapeRenderer.ShapeType.Line);
-        shaperender.setColor(Color.BLUE);
+        shaperender.setColor(Color.YELLOW);
         shaperender.box(meuMundo.getMariposa().getRectangulo().getX(), meuMundo.getMariposa().getRectangulo().getY(),0,
 				meuMundo.getMariposa().getRectangulo().getWidth(),meuMundo.getMariposa().getRectangulo().getHeight(),0);
+        shaperender.box(Controles.CONTROL_PAUSE.x,Controles.CONTROL_PAUSE.y,0,Controles.CONTROL_PAUSE.width,Controles.CONTROL_PAUSE.height,0);
+        shaperender.box(Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,0,Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height,0);
         shaperender.end();
     }
 

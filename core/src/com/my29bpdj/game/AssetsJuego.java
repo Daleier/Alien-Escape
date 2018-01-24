@@ -23,6 +23,8 @@ public class AssetsJuego {
 		public static Animation naveAnimacion;
 		public static Texture textureCursor;
 		public static Animation mariposaAnimacion;
+		public static Texture texturePausa;
+		public static Texture textureSalir;
 
 
 		/**
@@ -59,6 +61,14 @@ public class AssetsJuego {
 //                libgdx_puntonegro.jpg (texturePuntoNegro)
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_puntonegro.jpg");
 			texturePuntoNegro = new Texture(imageFileHandle);
+
+			//libgdx_itin1_pausa.png
+			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_pausa.png");
+			texturePausa = new Texture(imageFileHandle);
+
+			//libgdx_itin1_sair.png
+			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_sair.png");
+			textureSalir = new Texture(imageFileHandle);
 
 //				Animación nave
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_spaceship.png");
@@ -123,5 +133,7 @@ public class AssetsJuego {
 			textureTronco.dispose();
 			texturePuntoNegro.dispose();
 			textureCursor.dispose();
+			textureSalir.dispose();
+			texturePausa.dispose();
 		}
 }
