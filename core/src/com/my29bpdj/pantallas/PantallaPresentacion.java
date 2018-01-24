@@ -4,56 +4,134 @@ package com.my29bpdj.pantallas;
  * Created by dam203 on 09/01/2018.
  */
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
+import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
+import com.my29bpdj.modelo.Mundo;
 
-public class PantallaPresentacion implements Screen {
+public class PantallaPresentacion implements Screen, InputProcessor {
 
-    @Override
+	private Juego meuxogogame;
+	private OrthographicCamera camara2d;
+	private SpriteBatch spritebatch;
+	private static Texture fondo;
+	private Rectangle botones[]={new Rectangle(100, 268, 98, 32),
+			new Rectangle(100, 235, 98, 32),
+			new Rectangle(100, 200, 98, 32)};
+
+	public PantallaPresentacion(Juego meuxogogame) {
+		this.meuxogogame=meuxogogame;
+
+		camara2d = new OrthographicCamera();
+		spritebatch = new SpriteBatch();
+		fondo = new Texture(Gdx.files.internal("graficos/libgdx_itin1_pantallapresentacion.png"));
+	}
+
+	@Override
     public void render(float delta) {
-        // TODO Auto-generated method stub
-
+		spritebatch.begin();
+		spritebatch.draw(fondo,0,0, Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
+		spritebatch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
-        Utiles.imprimirLog("Resize", "RESIZE", "RESIZE");
+		camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+		camara2d.update();
 
+		spritebatch.setProjectionMatrix(camara2d.combined);
+		spritebatch.disableBlending();
     }
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
-        Utiles.imprimirLog("PantallaXogo", "SHOW", "SHOW");
+		Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void hide() {
         // TODO Auto-generated method stub
-        Utiles.imprimirLog("PantallaXogo", "HIDE", "HIDE");
 
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-        Utiles.imprimirLog("PantallaXogo", "PAUSE", "PAUSE");
-
+		Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
-        Utiles.imprimirLog("PantallaXogo", "RESUME", "RESUME");
-
+		Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
-        Utiles.imprimirLog("PantallaXogo", "DISPOSE", "DISPOSE");
-
+		Gdx.input.setInputProcessor(null);
+		spritebatch.dispose();
+		fondo.dispose();
     }
+
+
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Vector3 temp = new Vector3(screenX,screenY,0);
+		camara2d.unproject(temp);
+		Circle dedo = new Circle(temp.x,temp.y,2);
+		if (Intersector.overlaps(dedo, botones[0]))	{	// Pulsar Juego nuevo
+			dispose();
+			meuxogogame.setScreen(new PantallaJuego(meuxogogame));
+		}else if (Intersector.overlaps(dedo, botones[1])){ // Puntuaciones
+
+		}else if (Intersector.overlaps(dedo, botones[2])){ // Salir
+			Gdx.app.exit();
+		}
+
+
+		return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
 
 }
