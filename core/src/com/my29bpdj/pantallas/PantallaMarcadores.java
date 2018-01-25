@@ -28,7 +28,7 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 		//Libgdx by default, creates a BitmapFont using the default 15pt Arial font included in the libgdx JAR file.
 		//Using FreeTypeFont, it is possible so create fonts with a desired size on the fly.
 		this.meuxogogame=meuxogogame;
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Pixeled.TTF"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ds-digit.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = (int)(15 * Mundo.PROPORCION_REAL_MUNDO_ANCHO);
 		this.bitMapFont = generator.generateFont(parameter); // font size in pixels
