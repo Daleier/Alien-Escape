@@ -21,7 +21,7 @@ android {
     }
     defaultConfig {
         applicationId "com.my29bpdj.game"
-        minSdkVersion 9
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
