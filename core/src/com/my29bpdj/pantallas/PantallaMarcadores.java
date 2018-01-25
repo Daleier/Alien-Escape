@@ -22,6 +22,7 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 	private SpriteBatch spritebatch;
 	private BitmapFont bitMapFont;
 	StringBuilder sbuffer;
+	StringBuilder sbuffer2;
 
     public PantallaMarcadores(Juego meuxogogame) {
 		//Libgdx by default, creates a BitmapFont using the default 15pt Arial font included in the libgdx JAR file.
@@ -34,7 +35,9 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 		//bitMapFont = new BitmapFont();
 		sbuffer = new StringBuilder();
-		sbuffer.append("ESCAPAR DE LOS ALIEN\n29BPDJ");
+		sbuffer2 = new StringBuilder();
+		sbuffer.append("ESCAPAR DE LOS ALIEN");
+		sbuffer2.append("29BPDJ");
 		spritebatch = new SpriteBatch();
 //		bitMapFont.draw(spritebatch,  "your text", 0, 100, Mundo.TAMANO_MUNDO_ANCHO, HAlignment.CENTER);
     }
@@ -47,7 +50,8 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 		spritebatch.begin();
 		bitMapFont.setColor(Color.YELLOW);
 	//bitMapFont.setScale(0.5f, 2);
-		bitMapFont.draw(spritebatch, sbuffer, 30*Mundo.PROPORCION_REAL_MUNDO_ANCHO, 450*Mundo.PROPORCION_REAL_MUNDO_ALTO);
+		bitMapFont.draw(spritebatch, sbuffer, 20*Mundo.PROPORCION_REAL_MUNDO_ANCHO, 450*Mundo.PROPORCION_REAL_MUNDO_ALTO);
+		bitMapFont.draw(spritebatch, sbuffer2, Mundo.TAMANO_MUNDO_ANCHO/2,420*Mundo.PROPORCION_REAL_MUNDO_ALTO);
 	// Falta el código que muestra las puntuaciones
 		spritebatch.end();
     }

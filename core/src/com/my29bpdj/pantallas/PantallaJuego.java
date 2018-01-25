@@ -8,6 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,6 +30,7 @@ public class PantallaJuego implements Screen, InputProcessor {
     private Juego meuxogogame;
     private RendererJuego rendererxogo;
     private ControladorJuego controladorJuego;
+	private BitmapFont bitMapFont;
 
 
     public PantallaJuego(Juego meuxogogame){
@@ -34,7 +38,6 @@ public class PantallaJuego implements Screen, InputProcessor {
         this.meuxogogame=meuxogogame;
         rendererxogo=new RendererJuego(meuMundo);
         controladorJuego = new ControladorJuego(meuMundo);
-
     }
 
 
@@ -46,14 +49,15 @@ public class PantallaJuego implements Screen, InputProcessor {
 		if (meuMundo.getAlien().getNumVidas().size>=15){
 			finXogo=true;
 		}
+		if (meuMundo.getCronometro() < 1){
+			finXogo=true;
+		}
 		if (pause){
 			meuxogogame.setScreen(new PantallaPause(meuxogogame, this));
 			return;
 		}
 		if (finXogo){
-			Utiles.imprimirLog("PantallaJuego", "render","finXogo");
 			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
-			// Facemos o return xa que continua a execución ata que remate o render.
 			return;
 		}
     }

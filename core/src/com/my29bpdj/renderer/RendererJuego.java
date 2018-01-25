@@ -7,9 +7,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.game.AssetsJuego;
 import com.my29bpdj.modelo.Alien;
@@ -34,9 +38,8 @@ public class RendererJuego implements InputProcessor{
 	private Mundo meuMundo;
 	private float crono;
 	private float crono2;
-
-
-
+	private BitmapFont bitMapFont;
+	StringBuilder sbuffer;
 
 	public RendererJuego(Mundo mundo) {
 		this.meuMundo = mundo;
@@ -48,6 +51,15 @@ public class RendererJuego implements InputProcessor{
 		crono2=0;
 		Gdx.input.setInputProcessor(this);
 
+//Libgdx by default, creates a BitmapFont using the default 15pt Arial font included in the libgdx JAR file.
+//Using FreeTypeFont, it is possible so create fonts with a desired size on the fly.
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("FONTS/DS-DIGIT.TTF"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = (int)(15 * Mundo.PROPORCION_REAL_MUNDO_ANCHO);
+		this.bitMapFont = generator.generateFont(parameter); // font size in pixels
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+		sbuffer = new StringBuilder();
+		this.bitMapFont.setColor(Color.WHITE);
 	}
 
     /**
@@ -70,12 +82,26 @@ public class RendererJuego implements InputProcessor{
 		dibujarAlien();
 		dibujarControles();
 		dibujarVidas();
+		dibujarTiempo();
 		spritebatch.end();
 
         if (debugger){
             debugger();
         }
     }
+
+	private void dibujarTiempo(){
+		// Borrar texto
+		sbuffer.setLength(0);
+		sbuffer.append(meuMundo.getCronometro());
+		// cpy() needed to properly set afterwards because calling set() seems to modify kept matrix, not replaces it
+		Matrix4 originalMatrix = spritebatch.getProjectionMatrix().cpy();
+		spritebatch.setProjectionMatrix(originalMatrix.cpy().scale(1/Mundo.PROPORCION_REAL_MUNDO_ANCHO, 1/Mundo.PROPORCION_REAL_MUNDO_ALTO,1));
+		this.bitMapFont.draw(spritebatch, sbuffer, 0, this.bitMapFont.getXHeight());
+		spritebatch.setProjectionMatrix(originalMatrix); //revert projection
+	}
+
+
 	private void dibujarFondo(){
 		spritebatch.draw(AssetsJuego.textureFondo,
 				0,0,Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
@@ -221,7 +247,6 @@ public class RendererJuego implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
 
         temporal.set(screenX,screenY,0);
         camara2d.unproject(temporal);

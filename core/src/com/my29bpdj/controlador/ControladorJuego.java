@@ -205,6 +205,7 @@ public class ControladorJuego {
 	}
 
 	public void update(float delta){
+		meuMundo.updateCronometro(delta);
 		controlarNave(delta);
 		controlarCoches(delta);
 		controlarRocas(delta);
