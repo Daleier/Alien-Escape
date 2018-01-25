@@ -105,7 +105,8 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 			dispose();
 			meuxogogame.setScreen(new PantallaJuego(meuxogogame));
 		}else if (Intersector.overlaps(dedo, botones[1])){ // Puntuaciones
-
+			dispose();
+			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 		}else if (Intersector.overlaps(dedo, botones[2])){ // Salir
 			Gdx.app.exit();
 		}

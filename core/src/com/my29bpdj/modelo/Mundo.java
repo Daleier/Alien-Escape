@@ -1,5 +1,6 @@
 package com.my29bpdj.modelo;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -18,6 +19,8 @@ public class Mundo {
             new Rectangle(0,220,300,120), new Rectangle(0,420,300,80)};
     public static final Rectangle ZONAS_SEGURAS[]={new Rectangle(40,420,20,60),
             new Rectangle(140,420,20,60), new Rectangle(240,420,20,60)};  // AS PLATAFORMAS QUE ESTAN ENRIBA DA LAVA.
+    public static final float PROPORCION_REAL_MUNDO_ANCHO = ((float) Gdx.graphics.getWidth() / Mundo.TAMANO_MUNDO_ANCHO);
+    public static final float PROPORCION_REAL_MUNDO_ALTO = ((float) Gdx.graphics.getHeight() / Mundo.TAMANO_MUNDO_ALTO);
 
     private Alien alien;
     private Nave nave;
