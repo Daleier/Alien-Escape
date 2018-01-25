@@ -12,6 +12,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
+import com.my29bpdj.modelo.Mundo;
+
+import javax.rmi.CORBA.Util;
 
 public class PantallaPause implements Screen, InputProcessor {
 
@@ -22,6 +25,7 @@ public class PantallaPause implements Screen, InputProcessor {
 	private PantallaJuego pantallaJuego;
 
     public PantallaPause(Juego meuxogogame, PantallaJuego pantallaJuego) {
+        Utiles.imprimirLog("PantallaPause","PantallaPause","Iniciada pausa");
         this.meuxogogame=meuxogogame;
 		this.pantallaJuego = pantallaJuego;
         camara2d = new OrthographicCamera();
@@ -31,36 +35,38 @@ public class PantallaPause implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        // TODO Auto-generated method stub
-
+		spritebatch.begin();
+        spritebatch.draw(fondo,0,0,Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
+        spritebatch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
+		camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+        camara2d.update();
 
+        spritebatch.setProjectionMatrix(camara2d.combined);
+        spritebatch.disableBlending();
     }
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(this);
+
     }
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-
+		Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(this);
 
     }
 
@@ -94,7 +100,7 @@ public class PantallaPause implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+		return false;
     }
 
     @Override
