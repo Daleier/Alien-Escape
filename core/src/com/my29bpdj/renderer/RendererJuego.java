@@ -209,6 +209,14 @@ public class RendererJuego implements InputProcessor{
 				meuMundo.getMariposa().getRectangulo().getWidth(),meuMundo.getMariposa().getRectangulo().getHeight(),0);
         shaperender.box(Controles.CONTROL_PAUSE.x,Controles.CONTROL_PAUSE.y,0,Controles.CONTROL_PAUSE.width,Controles.CONTROL_PAUSE.height,0);
         shaperender.box(Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,0,Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height,0);
+        shaperender.setColor(Color.GREEN);
+		for (ElementoMovil coche : meuMundo.getCoches()){
+			shaperender.box(coche.getRectangulo().x,coche.getRectangulo().y,0,
+				coche.getRectangulo().getWidth(),coche.getRectangulo().getHeight(),0 );
+		}
+		shaperender.setColor(Color.RED);
+		shaperender.box(meuMundo.getAlien().getRectangulo().x,meuMundo.getAlien().getRectangulo().y,0,
+				meuMundo.getAlien().getRectangulo().getWidth(),meuMundo.getAlien().getRectangulo().getHeight(),0 );
         shaperender.end();
     }
 

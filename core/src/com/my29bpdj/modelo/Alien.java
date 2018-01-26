@@ -70,10 +70,8 @@ public class Alien extends Personaje{
 
 	@Override
 	public void actualizarRectangulo(){
-
 		getRectangulo().x = getPosicion().x+getTamano().x/4;
 		getRectangulo().y = getPosicion().y+getTamano().y/4;
-
 	}
 
 	@Override
