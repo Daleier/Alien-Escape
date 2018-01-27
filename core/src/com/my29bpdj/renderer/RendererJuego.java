@@ -33,7 +33,7 @@ public class RendererJuego implements InputProcessor{
 	private SpriteBatch spritebatch;
 	private OrthographicCamera camara2d;
 	private Vector3 temporal;
-	private boolean debugger=true;
+	private boolean debugger=false;
 	private ShapeRenderer shaperender;
 	private Mundo meuMundo;
 	private float crono;

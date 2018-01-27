@@ -10,6 +10,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.my29bpdj.game.Audio;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
 import com.my29bpdj.modelo.Mundo;
@@ -94,7 +95,32 @@ public class PantallaPause implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		meuxogogame.setScreen(this.pantallaJuego);
+        dispose();
+        if (Audio.isInicioPausada()) {
+            Audio.audioInicio.play();
+            Audio.setInicioPausada(false);
+        }
+        if (Audio.isJuegoPausada()) {
+            Audio.audioJuego.play();
+            Audio.setJuegoPausada(false);
+        }
+        if (Audio.isOvni01AlcanzadoPausada()){
+            Audio.audioOvni01_alcanzado.play();
+            Audio.setOvni01AlcanzadoPausada(false);
+        }
+        if (Audio.isOvni02AlcanzadoPausada()){
+            Audio.audioOvni02_alcanzado.play();
+            Audio.setOvni02AlcanzadoPausada(false);
+        }
+        if (Audio.isOvni03AlcanzadoPausada()){
+            Audio.audioOvni03_alcanzado.play();
+            Audio.setOvni03AlcanzadoPausada(false);
+        }
+        if (Audio.isSpaceshipPausada()) {
+            Audio.audioSpaceship.play();
+            Audio.setSpaceshipPausada(false);
+        }
+        meuxogogame.setScreen(this.pantallaJuego);
         return false;
     }
 

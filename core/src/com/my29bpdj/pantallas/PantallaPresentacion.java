@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.my29bpdj.game.Audio;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
 import com.my29bpdj.modelo.Mundo;
@@ -34,6 +35,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		camara2d = new OrthographicCamera();
 		spritebatch = new SpriteBatch();
 		fondo = new Texture(Gdx.files.internal("graficos/libgdx_itin1_pantallapresentacion.png"));
+		Audio.audioPresentacion.play();
 	}
 
 	@Override
@@ -76,6 +78,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
     @Override
     public void dispose() {
 		Gdx.input.setInputProcessor(null);
+		Audio.audioPresentacion.stop();
 		spritebatch.dispose();
 		fondo.dispose();
     }

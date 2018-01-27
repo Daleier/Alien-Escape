@@ -1,8 +1,11 @@
 package com.my29bpdj.controlador;
 
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.my29bpdj.game.Audio;
 import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.ElementoMovil;
@@ -20,7 +23,7 @@ public class ControladorJuego {
 	private Alien alien;
 	private Mariposa mariposa;
 	private Nave nave;
-
+	public static Music[] ovni_alcanzado = new Music[]{Audio.audioOvni01_alcanzado, Audio.audioOvni02_alcanzado, Audio.audioOvni03_alcanzado};
 
 	public enum Keys {
         IZQUIERDA, DERECHA,ARRIBA, ABAJO
@@ -119,6 +122,13 @@ public class ControladorJuego {
 				nave.setVelocidade(-1*nave.getVelocidade());
 			}
 		}
+		if(nave.isParado()){
+			if(Audio.audioSpaceship.isPlaying()){
+				Audio.audioSpaceship.stop();
+			}
+		}else{
+			Audio.audioSpaceship.play();
+		}
 	}
 
 	private void controlarAlien(float delta){ //TODO refactorizar
@@ -161,6 +171,10 @@ public class ControladorJuego {
         for (ElementoMovil elem : meuMundo.getCoches()){
             if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
                 alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+                if(Audio.audioMuerte.isPlaying()){
+                	Audio.audioMuerte.stop();
+				}
+				Audio.audioMuerte.play();
                 alien.inicializarAlien();
             }
         }
@@ -178,6 +192,10 @@ public class ControladorJuego {
                 for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
                     if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
                         alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+						if(Audio.audioMuerte.isPlaying()){
+							Audio.audioMuerte.stop();
+						}
+						Audio.audioMuerte.play();
                         alien.inicializarAlien();
                     }
                 }
@@ -186,6 +204,10 @@ public class ControladorJuego {
 		// Controla se mariposa toca o alien
         if (Intersector.overlaps(alien.getRectangulo(), mariposa.getRectangulo())){
 			alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+			if(Audio.audioMuerte.isPlaying()){
+				Audio.audioMuerte.stop();
+			}
+			Audio.audioMuerte.play();
             alien.inicializarAlien();
             mariposa.inicializarMariposa();
         }
@@ -193,6 +215,11 @@ public class ControladorJuego {
 		// Controla si alien llega a la nave
         if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())){
             alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
+			Audio.audioJuego.pause();
+			for(Music i : ovni_alcanzado){
+				i.stop();
+			}
+			ovni_alcanzado[MathUtils.random(0, 2)].play();
             alien.inicializarAlien();
         }
 	}
@@ -212,7 +239,6 @@ public class ControladorJuego {
 		controlarTroncos(delta);
 		controlarMariposa(delta);
 		controlarAlien(delta);
-
 		procesarEntradas();
 	}
 

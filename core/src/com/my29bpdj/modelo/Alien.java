@@ -2,6 +2,7 @@ package com.my29bpdj.modelo;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.my29bpdj.game.Audio;
 
 public class Alien extends Personaje{
 
@@ -36,11 +37,28 @@ public class Alien extends Personaje{
 
 	public void setVelocidadeX(float x){
 		velocidade.x = x;
-
+		this.sonidoMovimiento();
 	}
 
 	public void setVelocidadeY(float y){
 		velocidade.y = y;
+		this.sonidoMovimiento();
+	}
+
+	private void sonidoMovimiento(){
+        /*Es necesario controlar velocidad de x e y ya que en el método procesar entradas
+        * de ControladorJuego se ejecutan siempre ambos métodos. Por ejemplo, cuando se
+        * pulsa a la derecha se ejecuara setVelocidadX, pero además, al valer ARRIBA y ABAJO false
+        * se ejecutará también setVelocidadY*/
+		if ((velocidade.x == 0)&&(velocidade.y==0)) {
+			if (Audio.audioMovimiento.isPlaying())
+				Audio.audioMovimiento.stop();
+		} else {
+			if (!Audio.audioMovimiento.isPlaying()){
+
+			}
+			Audio.audioMovimiento.play();
+		}
 	}
 
 	public float getVelocidadMontado() {

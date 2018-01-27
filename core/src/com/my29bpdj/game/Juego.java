@@ -14,6 +14,7 @@ public class Juego extends Game {
     @Override
     public void create() {
         AssetsJuego.cargarTexturas();
+        Audio.iniciarAudio();
         setScreen(new PantallaPresentacion(this));
     }
 
@@ -21,5 +22,6 @@ public class Juego extends Game {
     public void dispose(){
         super.dispose();
         AssetsJuego.liberarTexturas();
+        Audio.dispose();
     }
 }

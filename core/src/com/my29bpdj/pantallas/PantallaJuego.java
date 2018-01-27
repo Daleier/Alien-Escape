@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.controlador.ControladorJuego;
+import com.my29bpdj.game.Audio;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
 import com.my29bpdj.modelo.Controles;
@@ -34,6 +35,7 @@ public class PantallaJuego implements Screen, InputProcessor {
 
 
     public PantallaJuego(Juego meuxogogame){
+        Audio.audioInicio.play();
         meuMundo = new Mundo();
         this.meuxogogame=meuxogogame;
         rendererxogo=new RendererJuego(meuMundo);
@@ -45,19 +47,76 @@ public class PantallaJuego implements Screen, InputProcessor {
     public void render(float delta) {
         controladorJuego.update(delta);
         rendererxogo.render(delta);
-
+        if(!Audio.audioInicio.isPlaying() && !Audio.audioJuego.isPlaying()){
+            if(!Audio.audioOvni01_alcanzado.isPlaying() && !Audio.audioOvni02_alcanzado.isPlaying() && !Audio.audioOvni03_alcanzado.isPlaying()){
+                Audio.audioJuego.play();
+            }
+        }
 		if (meuMundo.getAlien().getNumVidas().size>=15){
 			finXogo=true;
 		}
 		if (meuMundo.getCronometro() < 1){
 			finXogo=true;
 		}
-		if (pause){
-			meuxogogame.setScreen(new PantallaPause(meuxogogame, this));
-			return;
-		}
+        if (pause) {
+            if (Audio.audioInicio.isPlaying()) {
+                Audio.audioInicio.pause();
+                Audio.setInicioPausada(true);
+            }
+            if (Audio.audioJuego.isPlaying()) {
+                Audio.audioJuego.pause();
+                Audio.setJuegoPausada(true);
+            }
+            if (Audio.audioMovimiento.isPlaying())
+                Audio.audioMovimiento.stop();
+            if (Audio.audioOvni01_alcanzado.isPlaying()) {
+                Audio.audioOvni01_alcanzado.pause();
+                Audio.setOvni01AlcanzadoPausada(true);
+            }
+            if (Audio.audioOvni02_alcanzado.isPlaying()) {
+                Audio.audioOvni02_alcanzado.pause();
+                Audio.setOvni02AlcanzadoPausada(true);
+            }
+            if (Audio.audioOvni03_alcanzado.isPlaying()) {
+                Audio.audioOvni03_alcanzado.pause();
+                Audio.setOvni03AlcanzadoPausada(true);
+            }
+            if (Audio.audioSpaceship.isPlaying()) {
+                Audio.audioSpaceship.pause();
+                Audio.setSpaceshipPausada(true);
+            }
+            Audio.audioCoche01.stop();
+            Audio.audioCoche02.stop();
+            Audio.audioCoche03.stop();
+            meuxogogame.setScreen(new PantallaPause(meuxogogame, this));
+            return;
+        }
+
 		if (finXogo){
-			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
+            if (Audio.audioInicio.isPlaying()) {
+                Audio.audioInicio.stop();
+            }
+            if (Audio.audioJuego.isPlaying()) {
+                Audio.audioJuego.stop();
+            }
+            if (Audio.audioMovimiento.isPlaying())
+                Audio.audioMovimiento.stop();
+            if (Audio.audioOvni01_alcanzado.isPlaying()) {
+                Audio.audioOvni01_alcanzado.stop();
+            }
+            if (Audio.audioOvni02_alcanzado.isPlaying()) {
+                Audio.audioOvni02_alcanzado.stop();
+            }
+            if (Audio.audioOvni03_alcanzado.isPlaying()) {
+                Audio.audioOvni03_alcanzado.stop();
+            }
+            if (Audio.audioSpaceship.isPlaying()) {
+                Audio.audioSpaceship.stop();
+            }
+            Audio.audioCoche01.stop();
+            Audio.audioCoche02.stop();
+            Audio.audioCoche03.stop();
+            meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 			return;
 		}
     }
@@ -70,12 +129,14 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-		pause=false;
+        Audio.iniciarClaxon();
+        pause=false;
 	}
 
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+        Audio.paraClaxon();
 
     }
 
@@ -91,7 +152,8 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void resume() {
         Gdx.input.setInputProcessor(this);
-		pause=false;
+        Audio.iniciarClaxon();
+        pause=false;
     }
 
     @Override
@@ -173,6 +235,12 @@ public class PantallaJuego implements Screen, InputProcessor {
 		recTemporal.set(Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height);
 		if (Intersector.overlaps(dedo, recTemporal)){
 			dispose();
+            Audio.audioJuego.stop();
+            Audio.audioInicio.stop();
+            Audio.audioOvni01_alcanzado.stop();
+            Audio.audioOvni02_alcanzado.stop();
+            Audio.audioOvni03_alcanzado.stop();
+            Audio.audioMovimiento.stop();
 			meuxogogame.setScreen(new PantallaPresentacion(meuxogogame));
 		}
         return false;
