@@ -113,9 +113,6 @@ public class PantallaJuego implements Screen, InputProcessor {
             if (Audio.audioSpaceship.isPlaying()) {
                 Audio.audioSpaceship.stop();
             }
-            Audio.audioCoche01.stop();
-            Audio.audioCoche02.stop();
-            Audio.audioCoche03.stop();
             meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 			return;
 		}
@@ -235,12 +232,26 @@ public class PantallaJuego implements Screen, InputProcessor {
 		recTemporal.set(Controles.CONTROL_SALIR.x,Controles.CONTROL_SALIR.y,Controles.CONTROL_SALIR.width,Controles.CONTROL_SALIR.height);
 		if (Intersector.overlaps(dedo, recTemporal)){
 			dispose();
-            Audio.audioJuego.stop();
-            Audio.audioInicio.stop();
-            Audio.audioOvni01_alcanzado.stop();
-            Audio.audioOvni02_alcanzado.stop();
-            Audio.audioOvni03_alcanzado.stop();
-            Audio.audioMovimiento.stop();
+            if (Audio.audioInicio.isPlaying()) {
+                Audio.audioInicio.stop();
+            }
+            if (Audio.audioJuego.isPlaying()) {
+                Audio.audioJuego.stop();
+            }
+            if (Audio.audioMovimiento.isPlaying())
+                Audio.audioMovimiento.stop();
+            if (Audio.audioOvni01_alcanzado.isPlaying()) {
+                Audio.audioOvni01_alcanzado.stop();
+            }
+            if (Audio.audioOvni02_alcanzado.isPlaying()) {
+                Audio.audioOvni02_alcanzado.stop();
+            }
+            if (Audio.audioOvni03_alcanzado.isPlaying()) {
+                Audio.audioOvni03_alcanzado.stop();
+            }
+            if (Audio.audioSpaceship.isPlaying()) {
+                Audio.audioSpaceship.stop();
+            }
 			meuxogogame.setScreen(new PantallaPresentacion(meuxogogame));
 		}
         return false;
