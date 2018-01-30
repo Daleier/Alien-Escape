@@ -1,5 +1,7 @@
 package com.my29bpdj.controlador;
 
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Intersector;
@@ -23,7 +25,6 @@ public class ControladorJuego {
 	private Alien alien;
 	private Mariposa mariposa;
 	private Nave nave;
-	public static Music[] ovni_alcanzado = new Music[]{Audio.audioOvni01_alcanzado, Audio.audioOvni02_alcanzado, Audio.audioOvni03_alcanzado};
 
 	public enum Keys {
         IZQUIERDA, DERECHA,ARRIBA, ABAJO
@@ -216,10 +217,17 @@ public class ControladorJuego {
         if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())){
             alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
 			Audio.audioJuego.pause();
-			for(Music i : ovni_alcanzado){
+			for(Music i : Audio.ovni_alcanzado){
 				i.stop();
 			}
-			ovni_alcanzado[MathUtils.random(0, 2)].play();
+			Music audio = null;
+			if (Gdx.app.getType()== ApplicationType.Android){
+				audio = Audio.ovni_alcanzado[MathUtils.random(0, 3)];
+			} else {
+				audio = Audio.ovni_alcanzado[MathUtils.random(0, 2)];
+			}
+			audio.setVolume(0.7f);
+			audio.play();
             alien.inicializarAlien();
         }
 	}

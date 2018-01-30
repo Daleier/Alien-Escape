@@ -36,6 +36,7 @@ public class Audio {
 	private static boolean spaceshipPausada;
 	public static Sound[] claxon = new Sound[3];
 	private static Task claxonCoches;
+	public static Music[] ovni_alcanzado = new Music[]{Audio.audioOvni01_alcanzado, Audio.audioOvni02_alcanzado, Audio.audioOvni03_alcanzado};
 
 
 	public static void iniciarAudio() {
@@ -52,17 +53,17 @@ public class Audio {
 		audioJuego = Gdx.audio.newMusic(Gdx.files.internal("musica/juego.mp3"));
 		audioJuego.setLooping(true);
 		audioJuego.setVolume(0.5f);
-		audioMovimiento = Gdx.audio.newMusic(Gdx.files.internal("musica/movimiento.wav"));
+		audioMovimiento = Gdx.audio.newMusic(Gdx.files.internal("musica/movimiento.ogg"));
 		audioMovimiento.setLooping(true);
 		audioMovimiento.setVolume(0.5f);
 		audioMuerte = Gdx.audio.newMusic(Gdx.files.internal("musica/muerte.mp3"));
 		audioMuerte.setVolume(0.5f);
 		audioOvni01_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni01_alcanzado.mp3"));
-		audioOvni01_alcanzado.setVolume(0.7f);
+		audioOvni01_alcanzado.setVolume(0.5f);
 		audioOvni02_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni02_alcanzado.mp3"));
-		audioOvni02_alcanzado.setVolume(0.7f);
+		audioOvni02_alcanzado.setVolume(0.5f);
 		audioOvni03_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni03_alcanzado.mp3"));
-		audioOvni03_alcanzado.setVolume(0.7f);
+		audioOvni03_alcanzado.setVolume(0.5f);
 		audioOvni_contacto = Gdx.audio.newSound(Gdx.files.internal("musica/ovni_contacto.mp3"));
 		audioPresentacion = Gdx.audio.newMusic(Gdx.files.internal("musica/presentacion.mp3"));
 		audioPresentacion.setLooping(true);
