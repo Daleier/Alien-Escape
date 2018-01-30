@@ -6,6 +6,7 @@ package com.my29bpdj.pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,9 +15,11 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.my29bpdj.game.AssetsJuego;
 import com.my29bpdj.game.Audio;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
+import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.Mundo;
 
 public class PantallaPresentacion implements Screen, InputProcessor {
@@ -28,6 +31,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 	private Rectangle botones[]={new Rectangle(100, 268, 98, 32),
 			new Rectangle(100, 235, 98, 32),
 			new Rectangle(100, 200, 98, 32)};
+	public static boolean musicaOn = true;
 
 	public PantallaPresentacion(Juego meuxogogame) {
 		this.meuxogogame=meuxogogame;
@@ -36,12 +40,21 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		spritebatch = new SpriteBatch();
 		fondo = new Texture(Gdx.files.internal("graficos/libgdx_itin1_pantallapresentacion.png"));
 		Audio.audioPresentacion.play();
+		Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
+		musicaOn = prefs.getBoolean("musicaOn");
 	}
 
 	@Override
     public void render(float delta) {
 		spritebatch.begin();
 		spritebatch.draw(fondo,0,0, Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO);
+		if(musicaOn){
+			spritebatch.draw(AssetsJuego.textureMusicOn,
+					Controles.CONTOL_MUSICA.x, Controles.CONTOL_MUSICA.y, Controles.CONTOL_MUSICA.getWidth(), Controles.CONTOL_MUSICA.getHeight());
+		}else{
+			spritebatch.draw(AssetsJuego.textureMusicOff,
+					Controles.CONTOL_MUSICA.x, Controles.CONTOL_MUSICA.y, Controles.CONTOL_MUSICA.getWidth(), Controles.CONTOL_MUSICA.getHeight());
+		}
 		spritebatch.end();
     }
 
@@ -112,6 +125,12 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 		}else if (Intersector.overlaps(dedo, botones[2])){ // Salir
 			Gdx.app.exit();
+		}
+		if(Intersector.overlaps(dedo,Controles.CONTOL_MUSICA)){
+			musicaOn = !musicaOn;
+			Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
+			prefs.putBoolean("musicaOn", musicaOn);
+			prefs.flush();
 		}
 
 

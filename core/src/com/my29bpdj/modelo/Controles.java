@@ -21,5 +21,6 @@ public class Controles {
 	public final static int POSVIDAS = 60;
 	public final static Rectangle CONTROL_PAUSE = new Rectangle(30,0,10,10);
 	public final static Rectangle CONTROL_SALIR = new Rectangle(45,0,10,10);
+	public final static Rectangle CONTOL_MUSICA = new Rectangle(10,10,50,50);
 
 }

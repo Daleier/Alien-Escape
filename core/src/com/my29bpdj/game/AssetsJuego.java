@@ -25,6 +25,8 @@ public class AssetsJuego {
 		public static Animation mariposaAnimacion;
 		public static Texture texturePausa;
 		public static Texture textureSalir;
+		public static Texture textureMusicOn;
+		public static Texture textureMusicOff;
 
 
 		/**
@@ -61,27 +63,27 @@ public class AssetsJuego {
 //                libgdx_puntonegro.jpg (texturePuntoNegro)
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_puntonegro.jpg");
 			texturePuntoNegro = new Texture(imageFileHandle);
-
 			//libgdx_itin1_pausa.png
 			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_pausa.png");
 			texturePausa = new Texture(imageFileHandle);
-
 			//libgdx_itin1_sair.png
 			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_sair.png");
 			textureSalir = new Texture(imageFileHandle);
-
 //				Animación nave
 			imageFileHandle = Gdx.files.internal("graficos/libgdx_spaceship.png");
 			generarAnimacionNave(imageFileHandle);
-
 		// Cursor
 			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_itin1_controis.png");
 			textureCursor = new Texture(imageFileHandle);
-
 		// Animación mariposa
 			imageFileHandle = Gdx.files.internal("graficos/butterfly.png");
 			generarAnimacionMariposa(imageFileHandle);
-
+		// Icono musica on
+			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_iconmusicaon.png");
+			textureMusicOn = new Texture(imageFileHandle);
+			// Icono musica off
+			imageFileHandle = Gdx.files.internal("graficos/controles/libgdx_iconmusicaoff.png");
+			textureMusicOff = new Texture(imageFileHandle);
 		}
 
 	private static void generarAnimacionMariposa(FileHandle imageFileHandle) {
@@ -135,5 +137,7 @@ public class AssetsJuego {
 			textureCursor.dispose();
 			textureSalir.dispose();
 			texturePausa.dispose();
+			textureMusicOn.dispose();
+			textureMusicOff.dispose();
 		}
 }
