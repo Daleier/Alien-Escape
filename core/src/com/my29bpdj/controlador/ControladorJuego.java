@@ -189,16 +189,16 @@ public class ControladorJuego {
 				}
 			}
 			if (!seguro) {
-				for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
-					if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
-						alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
-						if (Audio.audioMuerte.isPlaying()) {
-							Audio.audioMuerte.stop();
-						}
-						Audio.audioMuerte.play();
-						alien.inicializarAlien();
-					}
-				}
+//				for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
+//					if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
+//						alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+//						if (Audio.audioMuerte.isPlaying()) {
+//							Audio.audioMuerte.stop();
+//						}
+//						Audio.audioMuerte.play();
+//						alien.inicializarAlien();
+//					}
+//				}
 			}
 		}
 		// Controla se mariposa toca o alien

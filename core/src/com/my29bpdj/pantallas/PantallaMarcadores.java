@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.my29bpdj.game.HighScores;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.modelo.Mundo;
 
@@ -39,6 +40,7 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 		sbuffer.append("ESCAPAR DE LOS ALIEN");
 		sbuffer2.append("29BPDJ");
 		spritebatch = new SpriteBatch();
+		HighScores.load();
 //		bitMapFont.draw(spritebatch,  "your text", 0, 100, Mundo.TAMANO_MUNDO_ANCHO, HAlignment.CENTER);
     }
 
@@ -51,8 +53,17 @@ public class PantallaMarcadores implements Screen, InputProcessor {
 		bitMapFont.setColor(Color.YELLOW);
 	//bitMapFont.setScale(0.5f, 2);
 		bitMapFont.draw(spritebatch, sbuffer, 70*Mundo.PROPORCION_REAL_MUNDO_ANCHO, 450*Mundo.PROPORCION_REAL_MUNDO_ALTO);
-		bitMapFont.draw(spritebatch, sbuffer2, (Mundo.TAMANO_MUNDO_ANCHO*Mundo.PROPORCION_REAL_MUNDO_ANCHO/2)-50,420*Mundo.PROPORCION_REAL_MUNDO_ALTO);
-	// Falta el código que muestra las puntuaciones
+		bitMapFont.draw(spritebatch, sbuffer2,
+				(Mundo.TAMANO_MUNDO_ANCHO*Mundo.PROPORCION_REAL_MUNDO_ANCHO/2)-50,420*Mundo.PROPORCION_REAL_MUNDO_ALTO);
+	// Código que muestra las puntuaciones
+		int height = 300;
+		int heighDiff = 40;
+		for(String s: HighScores.highscores){
+			bitMapFont.draw(spritebatch, new StringBuilder().append(s),
+					(Mundo.TAMANO_MUNDO_ANCHO*Mundo.PROPORCION_REAL_MUNDO_ANCHO/2),height*Mundo.PROPORCION_REAL_MUNDO_ALTO);
+			height -= heighDiff;
+		}
+
 		spritebatch.end();
     }
 
