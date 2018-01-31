@@ -14,6 +14,7 @@ import com.my29bpdj.modelo.ElementoMovil;
 import com.my29bpdj.modelo.Mariposa;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.modelo.Nave;
+import com.my29bpdj.pantallas.PantallaPresentacion;
 
 import java.util.HashMap;
 
@@ -132,104 +133,106 @@ public class ControladorJuego {
 		}
 	}
 
-	private void controlarAlien(float delta){ //TODO refactorizar
+	private void controlarAlien(float delta) { //TODO refactorizar
 		// Actualiza Alien
 		alien.update(delta);
 
 		// Impide que se mova fora dos límites da pantalla
-		if (alien.getPosicion().x <=0){
+		if (alien.getPosicion().x <= 0) {
 			alien.setPosicion(0, alien.getPosicion().y);
-		}
-		else {
-			if (alien.getPosicion().x >= Mundo.TAMANO_MUNDO_ANCHO-alien.getTamano().x){
-				alien.setPosicion(Mundo.TAMANO_MUNDO_ANCHO-alien.getTamano().x, alien.getPosicion().y);
+		} else {
+			if (alien.getPosicion().x >= Mundo.TAMANO_MUNDO_ANCHO - alien.getTamano().x) {
+				alien.setPosicion(Mundo.TAMANO_MUNDO_ANCHO - alien.getTamano().x, alien.getPosicion().y);
 			}
 
 		}
 
-		if (alien.getPosicion().y <= Controles.FONDO_NEGRO.height){
-			alien.setPosicion(alien.getPosicion().x,Controles.FONDO_NEGRO.height);
-		}
-		else {
-			if (alien.getPosicion().y >= Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y){
-				alien.setPosicion(alien.getPosicion().x, Mundo.TAMANO_MUNDO_ALTO-alien.getTamano().y);
+		if (alien.getPosicion().y <= Controles.FONDO_NEGRO.height) {
+			alien.setPosicion(alien.getPosicion().x, Controles.FONDO_NEGRO.height);
+		} else {
+			if (alien.getPosicion().y >= Mundo.TAMANO_MUNDO_ALTO - alien.getTamano().y) {
+				alien.setPosicion(alien.getPosicion().x, Mundo.TAMANO_MUNDO_ALTO - alien.getTamano().y);
 			}
 		}
 
 		// Controla que suba enriba dun elemento móvil
 		alien.setVelocidadMontado(0);
-		for (ElementoMovil elem : meuMundo.getRocas()){
-			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
+		for (ElementoMovil elem : meuMundo.getRocas()) {
+			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())) {
 				alien.setVelocidadMontado(elem.getVelocidade());
 			}
 		}
-		for (ElementoMovil elem : meuMundo.getTroncos()){
-			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
+		for (ElementoMovil elem : meuMundo.getTroncos()) {
+			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())) {
 				alien.setVelocidadMontado(elem.getVelocidade());
 			}
 		}
-        // Controla se lle colle un vehículo
-        for (ElementoMovil elem : meuMundo.getCoches()){
-            if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())){
-                alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
-                if(Audio.audioMuerte.isPlaying()){
-                	Audio.audioMuerte.stop();
+		// Controla se lle colle un vehículo
+		for (ElementoMovil elem : meuMundo.getCoches()) {
+			if (Intersector.overlaps(elem.getRectangulo(), alien.getRectangulo())) {
+				alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+				if (Audio.audioMuerte.isPlaying()) {
+					Audio.audioMuerte.stop();
 				}
 				Audio.audioMuerte.play();
-                alien.inicializarAlien();
-            }
-        }
-        // Controla se cae a auga ou lava
-        if (alien.getVelocidadMontado()==0) {
-            boolean seguro = false;
-            // Se está nunha zona segura xa non mira as perigosas
-            for (int cont = 0; cont < Mundo.ZONAS_SEGURAS.length; cont++) {
-                if (Intersector.overlaps(Mundo.ZONAS_SEGURAS[cont], alien.getRectangulo())) {
-                    seguro = true;
-                    break;
-                }
-            }
-            if (!seguro) {
-                for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
-                    if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
-                        alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
-						if(Audio.audioMuerte.isPlaying()){
+				alien.inicializarAlien();
+			}
+		}
+		// Controla se cae a auga ou lava
+		if (alien.getVelocidadMontado() == 0) {
+			boolean seguro = false;
+			// Se está nunha zona segura xa non mira as perigosas
+			for (int cont = 0; cont < Mundo.ZONAS_SEGURAS.length; cont++) {
+				if (Intersector.overlaps(Mundo.ZONAS_SEGURAS[cont], alien.getRectangulo())) {
+					seguro = true;
+					break;
+				}
+			}
+			if (!seguro) {
+				for (int cont = 0; cont < Mundo.ZONAS_PERIGOSAS.length; cont++) {
+					if (Intersector.overlaps(Mundo.ZONAS_PERIGOSAS[cont], alien.getRectangulo())) {
+						alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
+						if (Audio.audioMuerte.isPlaying()) {
 							Audio.audioMuerte.stop();
 						}
 						Audio.audioMuerte.play();
-                        alien.inicializarAlien();
-                    }
-                }
-            }
-        }
+						alien.inicializarAlien();
+					}
+				}
+			}
+		}
 		// Controla se mariposa toca o alien
-        if (Intersector.overlaps(alien.getRectangulo(), mariposa.getRectangulo())){
+		if (Intersector.overlaps(alien.getRectangulo(), mariposa.getRectangulo())) {
 			alien.setNumVidas(Alien.TIPOS_VIDA.MUERTO);
-			if(Audio.audioMuerte.isPlaying()){
+			if (Audio.audioMuerte.isPlaying()) {
 				Audio.audioMuerte.stop();
 			}
 			Audio.audioMuerte.play();
-            alien.inicializarAlien();
-            mariposa.inicializarMariposa();
-        }
+			alien.inicializarAlien();
+			mariposa.inicializarMariposa();
+		}
 
 		// Controla si alien llega a la nave
-        if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())){
-            alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
-			Audio.audioJuego.pause();
-			for(Music i : Audio.ovni_alcanzado){
-				i.stop();
+		if (Intersector.overlaps(alien.getRectangulo(), nave.getRectangulo())) {
+			alien.setNumVidas(Alien.TIPOS_VIDA.SALVADO);
+			if(PantallaPresentacion.musicaOn){
+				Audio.audioJuego.pause();
+				for (Music i : Audio.ovni_alcanzado) {
+					if(i.isPlaying()){
+						i.stop();
+					}
+				}
+				Music audio = null;
+				if (Gdx.app.getType() == ApplicationType.Android) {
+					audio = Audio.ovni_alcanzado[MathUtils.random(0, 3)];
+				} else {
+					audio = Audio.ovni_alcanzado[MathUtils.random(0, 2)];
+				}
+				audio.setVolume(0.7f);
+				audio.play();
 			}
-			Music audio = null;
-			if (Gdx.app.getType()== ApplicationType.Android){
-				audio = Audio.ovni_alcanzado[MathUtils.random(0, 3)];
-			} else {
-				audio = Audio.ovni_alcanzado[MathUtils.random(0, 2)];
-			}
-			audio.setVolume(0.7f);
-			audio.play();
-            alien.inicializarAlien();
-        }
+			alien.inicializarAlien();
+		}
 	}
 
 	private void controlarMariposa(float delta){

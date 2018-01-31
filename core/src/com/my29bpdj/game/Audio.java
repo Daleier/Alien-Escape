@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.my29bpdj.pantallas.PantallaPresentacion;
 
 /**
  * Created by dam203 on 26/01/2018.
@@ -36,7 +37,7 @@ public class Audio {
 	private static boolean spaceshipPausada;
 	public static Sound[] claxon = new Sound[3];
 	private static Task claxonCoches;
-	public static Music[] ovni_alcanzado = new Music[]{Audio.audioOvni01_alcanzado, Audio.audioOvni02_alcanzado, Audio.audioOvni03_alcanzado};
+	public static Music[] ovni_alcanzado = new Music[3];
 
 
 	public static void iniciarAudio() {
@@ -47,29 +48,22 @@ public class Audio {
 		audioCoche03 = Gdx.audio.newSound(Gdx.files.internal("musica/coche03.mp3"));
 		claxon[2] = audioCoche03;
 		audioFin = Gdx.audio.newMusic(Gdx.files.internal("musica/fin.mp3"));
-		audioFin.setVolume(0.5f);
 		audioInicio = Gdx.audio.newMusic(Gdx.files.internal("musica/inicio.mp3"));
-		audioInicio.setVolume(0.5f);
 		audioJuego = Gdx.audio.newMusic(Gdx.files.internal("musica/juego.mp3"));
 		audioJuego.setLooping(true);
-		audioJuego.setVolume(0.5f);
 		audioMovimiento = Gdx.audio.newMusic(Gdx.files.internal("musica/movimiento.ogg"));
 		audioMovimiento.setLooping(true);
-		audioMovimiento.setVolume(0.5f);
 		audioMuerte = Gdx.audio.newMusic(Gdx.files.internal("musica/muerte.mp3"));
-		audioMuerte.setVolume(0.5f);
 		audioOvni01_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni01_alcanzado.mp3"));
-		audioOvni01_alcanzado.setVolume(0.5f);
 		audioOvni02_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni02_alcanzado.mp3"));
-		audioOvni02_alcanzado.setVolume(0.5f);
 		audioOvni03_alcanzado = Gdx.audio.newMusic(Gdx.files.internal("musica/ovni03_alcanzado.mp3"));
-		audioOvni03_alcanzado.setVolume(0.5f);
 		audioOvni_contacto = Gdx.audio.newSound(Gdx.files.internal("musica/ovni_contacto.mp3"));
 		audioPresentacion = Gdx.audio.newMusic(Gdx.files.internal("musica/presentacion.mp3"));
 		audioPresentacion.setLooping(true);
-		audioPresentacion.setVolume(0.5f);
 		audioSpaceship = Gdx.audio.newMusic(Gdx.files.internal("musica/space_ship_floating_sound.mp3"));
-		audioSpaceship.setVolume(0.3f);
+		ovni_alcanzado[0] = Audio.audioOvni01_alcanzado;
+		ovni_alcanzado[1] = Audio.audioOvni02_alcanzado;
+		ovni_alcanzado[2] = Audio.audioOvni03_alcanzado;
 	}
 
 	public static void dispose(){
@@ -88,6 +82,31 @@ public class Audio {
 		audioPresentacion.dispose();
 	}
 
+	public static void setVolume() {
+		if(PantallaPresentacion.musicaOn){
+			audioFin.setVolume(0.5f);
+			audioInicio.setVolume(0.5f);
+			audioJuego.setVolume(0.5f);
+			audioMovimiento.setVolume(0.5f);
+			audioMuerte.setVolume(0.5f);
+			audioOvni01_alcanzado.setVolume(0.5f);
+			audioOvni02_alcanzado.setVolume(0.5f);
+			audioOvni03_alcanzado.setVolume(0.5f);
+			audioPresentacion.setVolume(0.5f);
+			audioSpaceship.setVolume(0.3f);
+		}else{
+			audioFin.setVolume(0);
+			audioInicio.setVolume(0);
+			audioJuego.setVolume(0);
+			audioMovimiento.setVolume(0);
+			audioMuerte.setVolume(0);
+			audioOvni01_alcanzado.setVolume(0);
+			audioOvni02_alcanzado.setVolume(0);
+			audioOvni03_alcanzado.setVolume(0);
+			audioPresentacion.setVolume(0);
+			audioSpaceship.setVolume(0);
+		}
+	}
 	public static void iniciarClaxon(){
 		claxonCoches = new Task(){
 			@Override

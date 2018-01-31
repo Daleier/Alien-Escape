@@ -42,6 +42,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		Audio.audioPresentacion.play();
 		Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
 		musicaOn = prefs.getBoolean("musicaOn");
+		Audio.setVolume();
 	}
 
 	@Override
@@ -128,6 +129,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		}
 		if(Intersector.overlaps(dedo,Controles.CONTOL_MUSICA)){
 			musicaOn = !musicaOn;
+			Audio.setVolume();
 			Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
 			prefs.putBoolean("musicaOn", musicaOn);
 			prefs.flush();

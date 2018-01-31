@@ -17,8 +17,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.my29bpdj.controlador.ControladorJuego;
 import com.my29bpdj.game.Audio;
+import com.my29bpdj.game.HighScores;
 import com.my29bpdj.game.Juego;
 import com.my29bpdj.game.Utiles;
+import com.my29bpdj.modelo.Alien;
 import com.my29bpdj.modelo.Controles;
 import com.my29bpdj.modelo.Mundo;
 import com.my29bpdj.renderer.RendererJuego;
@@ -113,6 +115,7 @@ public class PantallaJuego implements Screen, InputProcessor {
             if (Audio.audioSpaceship.isPlaying()) {
                 Audio.audioSpaceship.stop();
             }
+			HighScores.engadirPuntuacion(meuMundo.getAlien().getNumVidasSalvadas());
             meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 			return;
 		}
@@ -126,15 +129,18 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-        Audio.iniciarClaxon();
+        if(PantallaPresentacion.musicaOn){
+			Audio.iniciarClaxon();
+		}
         pause=false;
 	}
 
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
-        Audio.paraClaxon();
-
+		if(PantallaPresentacion.musicaOn){
+			Audio.paraClaxon();
+		}
     }
 
     @Override
@@ -149,8 +155,10 @@ public class PantallaJuego implements Screen, InputProcessor {
     @Override
     public void resume() {
         Gdx.input.setInputProcessor(this);
-        Audio.iniciarClaxon();
-        pause=false;
+		if(PantallaPresentacion.musicaOn){
+			Audio.iniciarClaxon();
+		}
+		pause=false;
     }
 
     @Override
