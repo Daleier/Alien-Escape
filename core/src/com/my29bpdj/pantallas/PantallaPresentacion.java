@@ -40,7 +40,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		spritebatch = new SpriteBatch();
 		fondo = new Texture(Gdx.files.internal("graficos/libgdx_itin1_pantallapresentacion.png"));
 		Audio.audioPresentacion.play();
-		Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
+		Preferences prefs = Gdx.app.getPreferences("preferencias.dat");
 		musicaOn = prefs.getBoolean("musicaOn");
 		Audio.setVolume();
 	}
@@ -130,7 +130,7 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		if(Intersector.overlaps(dedo,Controles.CONTOL_MUSICA)){
 			musicaOn = !musicaOn;
 			Audio.setVolume();
-			Preferences prefs = Gdx.app.getPreferences("preferencias.txt");
+			Preferences prefs = Gdx.app.getPreferences("preferencias.dat");
 			prefs.putBoolean("musicaOn", musicaOn);
 			prefs.flush();
 		}

@@ -13,9 +13,12 @@ public class HighScores {
 
 	public static void load() {
 		FileHandle arquivo = Gdx.files.external(HighScores.archivoHighscores);
-		if (!arquivo.exists())
+		if (!arquivo.exists()) {
 			HighScores.save();
+			System.out.println("Non encontrado");
+		}
 		String scores = arquivo.readString();
+
 		highscores = scores.split(",");
 	}
 
@@ -27,15 +30,15 @@ public class HighScores {
 				/*Desplazar los valores inferiores una posición a la derecha
 				 * para no perder los marcadores previos
 				 */
-				//TODO corregir
-				Utiles.imprimirLog("Highscores", "engadirPuntuacion", "Posicion: "+i+" Puntuacion: "+highscores[i]);
-				if (i < highscores.length-1) {
-					HighScores.highscores[i + 1] = highscores[i];
-					highscores[i] = Integer.toString(puntuacion);
+				for (int j=i; j < highscores.length-1; j++ ){
+					HighScores.highscores[j+1] = HighScores.highscores[j];
 				}
-				i++;
-			} else
+				HighScores.highscores[i] =  Integer.toString(puntuacion);
+				for(String k : highscores)
+					System.out.println(k+",");
 				encontrado=true;
+			} else
+				i++;
 		}
 		if (encontrado)
 			HighScores.save();
@@ -44,8 +47,11 @@ public class HighScores {
 	private static void save() {
 		FileHandle arquivo = Gdx.files.external(HighScores.archivoHighscores);
 		arquivo.writeString(HighScores.highscores[0] + ",", false);
-		for(int n = 1; n<highscores.length;n++){
+		arquivo.writeString(HighScores.highscores[1] + ",", true);
+		arquivo.writeString(HighScores.highscores[2], true);
+
+		/*for(int n = 1; n<highscores.length;n++){
 			arquivo.writeString(HighScores.highscores[n] + ",", true);
-		}
+		}*/
 	}
 }
