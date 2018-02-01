@@ -30,13 +30,13 @@ public class HighScores {
 				/*Desplazar los valores inferiores una posición a la derecha
 				 * para no perder los marcadores previos
 				 */
-				for (int j=i; j < highscores.length-1; j++ ){
-					HighScores.highscores[j+1] = HighScores.highscores[j];
+				encontrado=true;
+				for (int j=highscores.length; j < 1; j-- ){
+					HighScores.highscores[j] = HighScores.highscores[j-1];
 				}
 				HighScores.highscores[i] =  Integer.toString(puntuacion);
 				for(String k : highscores)
 					System.out.println(k+",");
-				encontrado=true;
 			} else
 				i++;
 		}
