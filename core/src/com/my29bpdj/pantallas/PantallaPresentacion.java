@@ -41,7 +41,11 @@ public class PantallaPresentacion implements Screen, InputProcessor {
 		fondo = new Texture(Gdx.files.internal("graficos/libgdx_itin1_pantallapresentacion.png"));
 		Audio.audioPresentacion.play();
 		Preferences prefs = Gdx.app.getPreferences("preferencias.dat");
-		musicaOn = prefs.getBoolean("musicaOn");
+		if(!prefs.contains("musicaOn")){
+			musicaOn = true;
+		}else{
+			musicaOn = prefs.getBoolean("musicaOn");
+		}
 		Audio.setVolume();
 	}
 
