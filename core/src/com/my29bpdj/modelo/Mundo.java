@@ -21,7 +21,7 @@ public class Mundo {
             new Rectangle(140,420,20,60), new Rectangle(240,420,20,60)};  // AS PLATAFORMAS QUE ESTAN ENRIBA DA LAVA.
     public static final float PROPORCION_REAL_MUNDO_ANCHO = ((float) Gdx.graphics.getWidth() / Mundo.TAMANO_MUNDO_ANCHO);
     public static final float PROPORCION_REAL_MUNDO_ALTO = ((float) Gdx.graphics.getHeight() / Mundo.TAMANO_MUNDO_ALTO);
-    private final static int TEMPO_INICIAL=20;
+    private final static int TEMPO_INICIAL=120;
 
     private float cronometro;
     private Alien alien;

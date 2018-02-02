@@ -116,7 +116,8 @@ public class PantallaJuego implements Screen, InputProcessor {
                 Audio.audioSpaceship.stop();
             }
 			HighScores.engadirPuntuacion(meuMundo.getAlien().getNumVidasSalvadas());
-            meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
+			System.out.println(meuMundo.getAlien().getNumVidasSalvadas());
+			meuxogogame.setScreen(new PantallaMarcadores(meuxogogame));
 			return;
 		}
     }
